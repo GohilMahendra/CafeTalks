@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cafetalks-dev-225016-authRole",
+      "UnauthRoleArn": "arn:aws:iam::276656896233:role/amplify-cafetalks-dev-225016-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::276656896233:role/amplify-cafetalks-dev-225016-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-cafetalks-dev-225016-deployment",
+      "UnauthRoleName": "amplify-cafetalks-dev-225016-unauthRole",
+      "StackName": "amplify-cafetalks-dev-225016",
+      "StackId": "arn:aws:cloudformation:ap-south-1:276656896233:stack/amplify-cafetalks-dev-225016/b0c5afe0-2bd8-11ee-b221-0a138a2ccf5a",
+      "AmplifyAppId": "d1ar83by8znkl3"
+    },
+    "categories": {
+      "auth": {
+        "cafetalks8165f6b8": {}
+      }
+    }
+  }
+}
