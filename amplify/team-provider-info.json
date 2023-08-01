@@ -1,19 +1,19 @@
 {
-  "dev": {
+  "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-cafetalks-dev-225016-authRole",
-      "UnauthRoleArn": "arn:aws:iam::276656896233:role/amplify-cafetalks-dev-225016-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::276656896233:role/amplify-cafetalks-dev-225016-authRole",
-      "Region": "ap-south-1",
-      "DeploymentBucketName": "amplify-cafetalks-dev-225016-deployment",
-      "UnauthRoleName": "amplify-cafetalks-dev-225016-unauthRole",
-      "StackName": "amplify-cafetalks-dev-225016",
-      "StackId": "arn:aws:cloudformation:ap-south-1:276656896233:stack/amplify-cafetalks-dev-225016/b0c5afe0-2bd8-11ee-b221-0a138a2ccf5a",
-      "AmplifyAppId": "d1ar83by8znkl3"
+      "AuthRoleName": "amplify-cafetalks-staging-185614-authRole",
+      "UnauthRoleArn": "arn:aws:iam::276656896233:role/amplify-cafetalks-staging-185614-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::276656896233:role/amplify-cafetalks-staging-185614-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-cafetalks-staging-185614-deployment",
+      "UnauthRoleName": "amplify-cafetalks-staging-185614-unauthRole",
+      "StackName": "amplify-cafetalks-staging-185614",
+      "StackId": "arn:aws:cloudformation:us-east-1:276656896233:stack/amplify-cafetalks-staging-185614/18515580-2be6-11ee-84ca-126de644d109",
+      "AmplifyAppId": "dzuatm49vdmzl"
     },
     "categories": {
       "auth": {
-        "cafetalks8165f6b8": {}
+        "CafeTalks": {}
       }
     }
   }

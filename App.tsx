@@ -18,15 +18,13 @@ import {
 import { Amplify } from 'aws-amplify';
 import awsExports from './src/aws-exports';
 import RootNavigation from './src/navigation/RootNavigation';
-
+import {ThemeProvider} from "./src/globals/ThemeContext";
 Amplify.configure(awsExports); 
-function App(): JSX.Element {
+function App(){
   return (
-    <SafeAreaView style={{
-      flex:1
-    }}>
+      <ThemeProvider>
       <RootNavigation/>
-    </SafeAreaView>  
+      </ThemeProvider>
   );
 }
 

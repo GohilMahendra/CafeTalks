@@ -3,13 +3,15 @@ import {View,Text  } from "react-native";
 import { NavigationContainer,  } from "@react-navigation/native";
 import { createNativeStackNavigator  } from "@react-navigation/native-stack";
 import SignUp from '../screens/SignUp';
+import OtpVerification from '../screens/OtpVerification';
 
-export type RootStackRoutes = {
-    SignUp:undefined
+export type RootStackRoutesParams = {
+    SignUp:undefined,
+    Otpverification:undefined
 }
 const RootNavigation = () =>
 {
-    const rootStack =createNativeStackNavigator<RootStackRoutes>()
+    const rootStack =createNativeStackNavigator<RootStackRoutesParams>()
     return(
         <NavigationContainer >
             <rootStack.Navigator 
@@ -20,6 +22,10 @@ const RootNavigation = () =>
                 <rootStack.Screen
                 name='SignUp'
                 component={SignUp}
+                />
+                 <rootStack.Screen
+                name='Otpverification'
+                component={OtpVerification}
                 />
             </rootStack.Navigator>
         </NavigationContainer>
