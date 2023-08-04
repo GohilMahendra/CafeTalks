@@ -1,10 +1,15 @@
 import React,{useState,useContext} from 'react'
-import { TouchableOpacity,View,TextInput,Text} from 'react-native';
+import { TouchableOpacity,View,TextInput,Text, StyleSheet, Alert} from 'react-native';
 import { Auth } from "aws-amplify";
 import { useNavigation } from '@react-navigation/native';
 import { RootStackRoutesParams } from '../navigation/RootNavigation';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ThemeContext } from '../globals/ThemeContext';
+
+export type FocusType = 
+{
+ [key: string]: boolean;
+}
 
 const SignUp = () =>
 {
@@ -12,105 +17,122 @@ const SignUp = () =>
     const [userName,setUserName] = useState("")
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
+    
     const navigation = useNavigation<NativeStackNavigationProp<RootStackRoutesParams,"SignUp">>()
     const SignUp  = async() =>
     {
         try
         {
            const signUp = await Auth.signUp({
-                username:email,
+                username:userName,
                 password:password,
+                attributes:{
+                    email:email,
+                    preferred_username: userName
+                }
             })
+            console.log(SignUp)
 
-            navigation.navigate("Otpverification")
+            navigation.navigate("Otpverification",{
+                userName:userName
+            })
         }
-        catch(err)
+        catch(err:any)
         {
-            console.log(err)
+            Alert.alert("oops",JSON.stringify(err.log))
         }
     }
+
     return(
-        <View style={{flex:1,backgroundColor:"#192734"}}>
-            <View style={{
-                height:250,
-                backgroundColor:"#00E7F2",
-                borderBottomLeftRadius:20,
-                borderBottomRightRadius:20
-            }}/>
-            <View style={{
-                padding:20
-            }}>
+        <View style={{flex:1,padding:20,justifyContent:'center',backgroundColor: theme.colors.ColorBackground}}>
+           
             <TextInput 
             onChangeText={(text:string)=>setUserName(text)}
             value={userName}
             placeholder='UserName ...'
-            placeholderTextColor={ "silver"}
-            style={{
-                padding:15,
+            placeholderTextColor={theme.colors.PlaceHolderColor}
+            style={[styles.input,{
+                borderColor: theme.colors.HighlightColor,
                 backgroundColor: theme.colors.ColorSecondary,
-                borderRadius:10,
-                color:"#fff",
-                fontSize:15,
-                borderColor: theme.colors.ColorPrimary,
-                borderWidth:0.6,
-                elevation:10,
-                marginVertical:10
-            }}/>
+                color: theme.colors.TextColor
+            }]}/>
+           
             <TextInput 
             onChangeText={(text:string)=>setEmail(text)}
             value={email}
             placeholder='email ...'
             placeholderTextColor={ "silver"}
-            style={{
-                padding:15,
-                backgroundColor:"#192734",
-                borderRadius:10,
-                color:"#fff",
-                fontSize:15,
-                elevation:10,
-                borderColor: theme.colors.ColorPrimary,
-                borderWidth:0.6,
-                marginVertical:10
-            }}/>
+            style={[styles.input,{
+                borderColor: theme.colors.HighlightColor,
+                backgroundColor: theme.colors.ColorSecondary,
+                color: theme.colors.PlaceHolderColor
+            }]}/>
             <TextInput 
             onChangeText={(text:string)=>setPassword(text)}
             value={password}
             placeholder='password ...'
             placeholderTextColor={ "silver"}
-            style={{
-                padding:15,
-                backgroundColor:"#192734",
-                borderRadius:10,
-                elevation:5,
-                fontSize:15,
-                color:"#fff",
-                borderColor: theme.colors.ColorSecondary,
-                borderWidth:0.6,
-                marginVertical:10
-            }}/>
+            style={[styles.input,{
+                borderColor: theme.colors.HighlightColor,
+                backgroundColor: theme.colors.ColorSecondary,
+                color: theme.colors.PlaceHolderColor
+            }]}/>
+           
+            <Text style={{
+                color: theme.colors.ColorPrimary,
+                alignSelf:"flex-end",
+                fontSize:15
+            }}>Forgot Password ?
+            </Text>
             <TouchableOpacity
             onPress={()=>SignUp()}
-            style={{
-                padding:20,
-                backgroundColor: theme.colors.ButtonBackgroundColor,
-                elevation:5,
-                borderRadius:15,
-                margin:20,
-                justifyContent:'center',
-                alignItems:'center',
-                width:"100%",
-                alignSelf:"center"
-            }}
+            style={[styles.BtnSubmit,{ backgroundColor: theme.colors.ButtonBackgroundColor}]}
             >
                 <Text
-                style={{
-                    fontSize:20,
-                    color: theme.colors.TextColor
-                }}
+                style={[styles.textSubmit,{ 
+                    color: theme.colors.TextColor,
+                    fontFamily: theme.fonts.contentFontBold
+                }]}
                 >Sign Up</Text>
             </TouchableOpacity>
-            </View>
+            <Text 
+            onPress={()=>navigation.navigate("SignIn")}
+            style={{
+                color: theme.colors.ColorPrimary,
+                alignSelf:"center",
+                fontSize:15
+            }}>Already have A account ? Sign In</Text>
+           
         </View>
     )
 }
 export default SignUp
+
+const styles = StyleSheet.create({
+    input:
+    {
+        padding:15,
+        backgroundColor:"#192734",
+        borderRadius:10,
+        color:"#fff",
+        fontSize:15,
+        elevation:10,
+        borderWidth:1,
+        marginVertical:10
+    },
+    BtnSubmit:
+    {
+        padding:20,
+        elevation:5,
+        borderRadius:15,
+        margin:20,
+        justifyContent:'center',
+        alignItems:'center',
+        width:"100%",
+        alignSelf:"center"
+    },
+    textSubmit:
+    {
+        fontSize:20,
+    }
+})

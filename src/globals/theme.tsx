@@ -7,7 +7,10 @@ export const colors = {
     black: "#010101",
     cream: "#FFFAF0",
     lightGrey: "#F5F5F5",
-    silver: "#C0C0C0"
+    silver: "#C0C0C0",
+    gold: "#FFD700",
+    purple: "#6528F7",
+    transparent: "transparent"
 
 }
 
@@ -54,18 +57,18 @@ export const LightColors:colorsType = {
     ErrorColor:colors.red,
     ButtonBackgroundColor:colors.electricBlue,
     TextColor:colors.black,
-    PlaceHolderColor: colors.offWhite
+    PlaceHolderColor: colors.silver
 }
 
 export const DarkColors:colorsType = {
     ColorPrimary:colors.electricBlue,
-    ColorSecondary:colors.twitterBlack,
+    ColorSecondary: colors.twitterBlack,
     ColorBackground:colors.twitterBlack,
-    HighlightColor:colors.electricBlue,
+    HighlightColor:"transparent",
     ErrorColor:colors.red,
     ButtonBackgroundColor:colors.electricBlue,
     TextColor:colors.offWhite,
-    PlaceHolderColor: colors.offWhite
+    PlaceHolderColor: colors.silver
 }
 
 export interface ThemeType {

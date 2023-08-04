@@ -17,11 +17,12 @@
           ],
           "passwordPolicyMinLength": 8
         },
-        "signupAttributes": [],
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
+        "signupAttributes": [
+          "EMAIL",
+          "PREFERRED_USERNAME"
         ],
+        "socialProviders": [],
+        "usernameAttributes": [],
         "verificationMechanisms": [
           "EMAIL"
         ]
