@@ -7,25 +7,33 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Search from '../screens/Profile/Search';
-import AddPost from '../screens/Profile/AddPost';
 import Chat from '../screens/Profile/Chat';
 import Profile from '../screens/Profile/Profile';
+
+export type ProfileTabParams = 
+{
+    Home: undefined,
+    Search: undefined,
+    Chat: undefined,
+    Profile: undefined
+}
 const ProfileTabNavigation = () =>
 {
-    const ProfileTab = createBottomTabNavigator()
+    const ProfileTab = createBottomTabNavigator<ProfileTabParams>()
     const { theme } = useContext(ThemeContext) 
     return(
         <ProfileTab.Navigator
         initialRouteName='Home'
-        screenOptions={{
+        screenOptions={({route})=>({
             tabBarStyle:{
-                backgroundColor: theme.colors.ColorBackground,
                 height:70,
-                elevation:10
-
+                elevation:10,
+                backgroundColor: theme.colors.ColorBackground
+                
             },
+            tabBarLabel:"",
             headerShown: false,
-        }}
+        })}
         >
             <ProfileTab.Screen
             name='Home' 
@@ -34,8 +42,12 @@ const ProfileTabNavigation = () =>
                 (
                     <Foundation
                     name='home'
-                    size={30}
-                    color={theme.colors.TextColor}
+                    size={30} 
+                    style={{
+                        padding:10,
+                        borderRadius:30
+                    }}
+                    color={(focused)?theme.colors.ColorPrimary:theme.colors.TextColor}
                     />
                 )
             }}
@@ -49,25 +61,15 @@ const ProfileTabNavigation = () =>
                     <AntDesign
                     name='find'
                     size={30}
-                    color={theme.colors.TextColor}
+                    style={{
+                        padding:10,
+                        borderRadius:30
+                    }}
+                    color={(focused)?theme.colors.ColorPrimary:theme.colors.TextColor}
                     />
                 )
             }}
             component={Search}
-            />
-             <ProfileTab.Screen
-            name='AddPost' 
-            options={{
-                tabBarIcon:({focused,color,size})=>
-                (
-                    <Feather
-                    name='feather'
-                    size={30}
-                    color={theme.colors.TextColor}
-                    />
-                )
-            }}
-            component={AddPost}
             />
              <ProfileTab.Screen
             name='Chat' 
@@ -77,7 +79,12 @@ const ProfileTabNavigation = () =>
                     <Ionicons
                     name='chatbox'
                     size={30}
-                    color={theme.colors.TextColor}
+                    style={{
+                      
+                        padding:10,
+                        borderRadius:30
+                    }}
+                    color={(focused)?theme.colors.ColorPrimary:theme.colors.TextColor}
                     />
                 )
             }}
@@ -91,7 +98,11 @@ const ProfileTabNavigation = () =>
                     <Feather
                     name='user'
                     size={30}
-                    color={theme.colors.TextColor}
+                    style={{
+                        padding:10,
+                        borderRadius:30
+                    }}
+                    color={(focused)?theme.colors.ColorPrimary:theme.colors.TextColor}
                     />
                 )
             }}

@@ -21,7 +21,7 @@ import { Auth } from 'aws-amplify'
        try
        {
             const result = await Auth.signIn(userName,password)
-            console.log(result)
+            navigation.replace("ProfileTab")
 
        }
        catch(err)

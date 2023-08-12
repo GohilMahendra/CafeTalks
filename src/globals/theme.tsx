@@ -10,8 +10,9 @@ export const colors = {
     silver: "#C0C0C0",
     gold: "#FFD700",
     purple: "#6528F7",
-    transparent: "transparent"
-
+    transparent: "transparent",
+    violet:"#800080",
+    
 }
 
 export const fontTypes = 
@@ -53,9 +54,9 @@ export const LightColors:colorsType = {
     ColorPrimary:colors.electricBlue,
     ColorSecondary:colors.white,
     ColorBackground:colors.white,
-    HighlightColor:colors.electricBlue,
+    HighlightColor:colors.transparent,
     ErrorColor:colors.red,
-    ButtonBackgroundColor:colors.electricBlue,
+    ButtonBackgroundColor:colors.violet,
     TextColor:colors.black,
     PlaceHolderColor: colors.silver
 }
@@ -63,7 +64,7 @@ export const LightColors:colorsType = {
 export const DarkColors:colorsType = {
     ColorPrimary:colors.electricBlue,
     ColorSecondary: colors.twitterBlack,
-    ColorBackground:colors.twitterBlack,
+    ColorBackground:colors.black,
     HighlightColor:"transparent",
     ErrorColor:colors.red,
     ButtonBackgroundColor:colors.electricBlue,

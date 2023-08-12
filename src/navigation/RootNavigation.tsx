@@ -7,8 +7,11 @@ import OtpVerification from '../screens/OtpVerification';
 import SignIn from '../screens/SignIn';
 import ForgotPassword from '../screens/ForgotPassword';
 import ResetPassword from '../screens/ResetPassword';
-import ProfileTabNavigation from './ProfileTabNavigation';
-
+import ProfileTabNavigation, { ProfileTabParams } from './ProfileTabNavigation';
+import AddPost from "../screens/Profile/Post/AddPost";
+import { Auth } from 'aws-amplify';
+import SplashScreen from '../screens/SplashScreen/SplashScreen';
+import StoryViewer from '../screens/Stories/StoryViewer';
 export type RootStackRoutesParams = {
     SignIn:undefined,
     SignUp:undefined,
@@ -19,10 +22,14 @@ export type RootStackRoutesParams = {
     ResetPassword:{
         userName: string
     }
-    ProfileTab: undefined
+    ProfileTab: undefined,
+    AddPost: undefined,
+    SplashScreen:undefined,
+    StoryViewer: undefined
 }
 const RootNavigation = () =>
 {
+   
     const rootStack =createNativeStackNavigator<RootStackRoutesParams>()
     return(
         <NavigationContainer >
@@ -30,7 +37,7 @@ const RootNavigation = () =>
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName='ProfileTab'>
+            initialRouteName = "StoryViewer">
                 <rootStack.Screen
                 name='SignIn'
                 component={SignIn}
@@ -54,6 +61,18 @@ const RootNavigation = () =>
                 <rootStack.Screen
                 name='ProfileTab'
                 component={ProfileTabNavigation}
+                />
+                <rootStack.Screen
+                name='AddPost'
+                component={AddPost}
+                />
+                <rootStack.Screen
+                name='SplashScreen'
+                component={SplashScreen}
+                />
+                 <rootStack.Screen
+                name='StoryViewer'
+                component={StoryViewer}
                 />
             </rootStack.Navigator>
         </NavigationContainer>
