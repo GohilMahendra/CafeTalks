@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { View , Text, Modal , Dimensions, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native'
 import FontAwesome5 from "react-native-vector-icons/FontAwesome";
 import Entypo from "react-native-vector-icons/Entypo";
+import Feather from "react-native-vector-icons/Feather";
 import { ThemeContext } from '../../../globals/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -252,97 +253,94 @@ const AddPost = () =>
             >
                 <View style={{
                     flex:1,
-                    justifyContent:'center',
+                    justifyContent:'flex-end',
                     alignItems:"flex-end",
-                    padding:20,
                     backgroundColor:"rgba(0,0,0,.7)"
                 }}>
                     <View
                     style={{
-                       
-                        backgroundColor:colors.ColorSecondary,
+                        backgroundColor:"Transparent",
                         width:"100%",
                         borderRadius:20,
-                        padding:20
+                        padding:20,
+                        
                     }}
                     >
-                        <Entypo
-                        onPress={()=>setMediaModal(false)}
-                        name={"squared-cross"}
-                        size={30}
-                        style={{
-                            alignSelf:"flex-end",
-                        }}
-                        color={colors.ColorPrimary}
-                        />
-                        <Text style={{
-                            fontSize:20,
-                            color:colors.ColorPrimary,
-                            alignSelf:"center"
-                        }}>
-                            Add Media Option
-                        </Text>
                         <View style={{
-                            margin:20,
-                            flexDirection:"row",
-                            justifyContent:"space-between"
+                            backgroundColor:colors.ColorSecondary,
+                            padding:20,
+                            borderRadius:20,
                         }}>
-                            <TouchableOpacity
-                            onPress={()=>openImagePicker()}
+                       <View
+                       style={{
+                        width:50,
+                        backgroundColor:colors.TextColor,
+                        height:5,
+                        alignSelf:"center",
+                        borderRadius:5
+                       }}
+                       />
+                        <TouchableOpacity 
+                        onPress={()=>openImagePicker()}
+                        style={{
+                            flexDirection:"row",
+                            padding:10,
+                            borderBottomColor:"grey",
+                            borderBottomWidth:1,
+                            borderRadius:10,
+                            marginVertical:5
+                        }}>
+                            <Feather
+                            name={"camera"}
+                            size={30}
+                            color={colors.TextColor}
                             style={{
-                                alignItems:"center",
-                                backgroundColor:colors.ColorSecondary,
-                                elevation:10,
-                                borderRadius:20,
-                                padding:10,
-                                shadowColor:(theme.mode=="dark")?"#fff":"black",
-                                shadowOpacity:1,
-                                shadowOffset:{
-                                    height:10,
-                                    width:10
-                                }
+                                marginRight:20
                             }}
-                            >
-                                <FontAwesome5 
-                                name={"image"}
-                                color={colors.ColorPrimary}
-                                size={30}
-                                ></FontAwesome5>
-                                <Text style={{
-                                    fontSize:20,
-                                    color: colors.ColorPrimary,
-                                    margin:10
-                                }}>Add Image</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
+                            />
+                            <Text style={{
+                                fontSize:20,
+                                color:colors.TextColor
+                            }}>Select photos To add</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                         onPress={()=>openVideoSelector()}
+                        style={{
+                            flexDirection:"row",
+                            padding:10,
+                            borderRadius:10
+                
+                        }}>
+                            <Feather
+                            name={"video"}
+                            size={30}
+                            color={colors.TextColor}
                             style={{
-                                alignItems:"center",
-                                backgroundColor:colors.ColorSecondary,
-                                elevation:10,
-                                padding:10,
-                                borderRadius:20,
-                                shadowColor:(theme.mode=="dark")?"#fff":"black",
-                                shadowOpacity:1,
-                                shadowOffset:{
-                                    height:10,
-                                    width:10
-                                }
+                                marginRight:20
                             }}
-                            >
-                                <Entypo 
-                                name={"video-camera"}
-                                color={colors.ColorPrimary}
-                                size={30}
-                                ></Entypo>
-                                <Text style={{
-                                    fontSize:20,
-                                    color: colors.ColorPrimary,
-                                    margin:10
-                                }}>Add Video</Text>
-                            </TouchableOpacity>
+                            />
+                            <Text style={{
+                                fontSize:20,
+                                color:colors.TextColor
+                            }}>Select Video To add</Text>
+                        </TouchableOpacity>
                         </View>
-                       
+                        <TouchableOpacity 
+                        onPress={()=>setMediaModal(false)}
+                        style={{
+                            marginVertical:10,
+                            backgroundColor:colors.ColorSecondary,
+                            padding:20,
+                            borderRadius:10,
+                            justifyContent:"center",
+                            alignItems:"center"
+                        }}>
+                            <Text style={{
+                                fontSize:20,
+                                color:colors.TextColor
+                            }}>Cancel</Text>
+                        </TouchableOpacity>
+                      
                     </View>
 
                 </View>

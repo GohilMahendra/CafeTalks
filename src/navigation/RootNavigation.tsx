@@ -29,7 +29,6 @@ export type RootStackRoutesParams = {
 }
 const RootNavigation = () =>
 {
-   
     const rootStack =createNativeStackNavigator<RootStackRoutesParams>()
     return(
         <NavigationContainer >
@@ -37,7 +36,7 @@ const RootNavigation = () =>
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName = "StoryViewer">
+            initialRouteName = "ProfileTab">
                 <rootStack.Screen
                 name='SignIn'
                 component={SignIn}

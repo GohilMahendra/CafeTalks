@@ -1,16 +1,27 @@
-import React, { useContext, useState } from 'react'
-import { View , Text, useWindowDimensions, SafeAreaView, Touchable, TouchableOpacity, Animated } from 'react-native'
+import React, { useCallback, useContext, useRef, useState } from 'react'
+import { View , Text, useWindowDimensions, SafeAreaView, TouchableWithoutFeedback, TouchableOpacity, Animated } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import Video from "react-native-video";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Feather from "react-native-vector-icons/Feather";
-import { Image } from 'react-native-elements';
+import { Image, Slider } from 'react-native-elements';
+import { Gesture ,GestureHandlerRootView, GestureDetector, TapGestureHandler  } from "react-native-gesture-handler";
 
 const VideoPlayer = () =>
 {
-    const videoUrl = require("../../../assets/videos/naruto.mp4")
     const {theme} = useContext(ThemeContext)
     const { height, width} = useWindowDimensions()
+    const videoRef = useRef<Video | null>(null)
+    const [dragging,setDragging] = useState(false)
+    const [videoLength,setVideoLength] = useState(0)
+    const [currentPos,setCurrentPos] = useState(0)
+    const [paused , setPaused] = useState(false)
+    const heartAnim = useRef(new Animated.Value(0));
+    const TranslateAnim = useRef(new Animated.Value(0))
+    const roatateAnim = useRef(new Animated.Value(0))
+   
+    const [isLiked, setIsLiked] = useState(false)
+    const TapRef = useRef()
     const Descrption= `Add new AI Image with \n
     beautiful landsacpe you can see time flowing 
     around it.
@@ -18,50 +29,106 @@ const VideoPlayer = () =>
     `
     const [expanded,setExpanded] = useState(false)
     const TextValue = new Animated.Value(1)
-
-    const onTap= () =>
-    {
-
-       if(expanded)
-       {
-        Animated.timing(TextValue, {
-            toValue:1,
-            duration: 300, // 10 seconds in milliseconds
-            useNativeDriver: false,
-        }).start();
-       }
-       else
-       {
-        Animated.timing(TextValue, {
-            toValue:9,
-            duration: 300, // 10 seconds in milliseconds
-            useNativeDriver: false,
-        }).start(()=>{
-           setExpanded(!expanded)
-        });
-       }
-    
-    }
    
+    
+    const setEndDuration=(event:any)=>
+    {
+      
+     if(!dragging)
+     {
+        setCurrentPos(event.currentTime)
+        if(videoLength == 0)
+        {
+            setVideoLength(event.seekableDuration)
+        }
+     }
+     
+    }
+    const seekToVideo = (event:any) =>
+    {
+      setDragging(true)
+      videoRef.current?.seek(event)
+    }
   
+    const seekComplete = () =>
+    {
+       setDragging(false)
+    }
 
+    const onDoubleTap = () =>
+    {
+        TranslateAnim.current.setValue(0)
+        roatateAnim.current.setValue(0)
+        heartAnim.current.setValue(0)
+     
+        Animated.sequence([
+            // increase size
+            Animated.timing(heartAnim.current, {
+                toValue: 1.7,
+                duration: 200,
+                useNativeDriver: false
+            }),
+            Animated.timing(roatateAnim.current, {
+                toValue: 1,
+                duration: 100,
+                useNativeDriver: false
+            }),
+            Animated.timing(roatateAnim.current, {
+                toValue: 0,
+                duration: 100,
+                useNativeDriver: false
+            }),
+            Animated.timing(TranslateAnim.current, {
+                toValue: 1,
+                duration: 200,
+                useNativeDriver: false
+            }),
+
+        ]).start(()=>{
+            TranslateAnim.current.setValue(0)
+            roatateAnim.current.setValue(0)
+            heartAnim.current.setValue(0)
+            setIsLiked(true)
+        });
+    }
+  
+    
     return(
         <SafeAreaView style={{
             backgroundColor:theme.colors.ColorSecondary,
             flex:1,
         }}>
+            <GestureHandlerRootView style={{
+                flex:1
+            }}>
+              <TapGestureHandler
+                waitFor={TapRef}
+                onActivated={() => setPaused(!paused)}
+            >
+                <TapGestureHandler
+                    ref={TapRef}
+                    numberOfTaps={2}
+                    maxDelayMs={500}
+                    onActivated={() => onDoubleTap()}
+                >
+            <View style={{
+                flex:1
+            }}>
             <Video
+            ref={ref=> videoRef.current = ref}
             source={require("../../../assets/videos/aui.mp4")}
-            paused={false}
-            currentTime={3}
+            paused={paused}
+            repeat
+            currentTime={currentPos}
             style={{
-                height:height,
+                height:height*90/100,
                 width:width
             }}
+            
             resizeMode='cover'
+            onProgress={(e)=>setEndDuration(e)}
             />
             
-              
                 <View style={{
                     width:"80%",
                     marginVertical:20,
@@ -101,7 +168,6 @@ const VideoPlayer = () =>
                             Example name
                         </Text>
                         <TouchableOpacity 
-                        onPress={()=>onTap()}
                         style={{
                             padding:5,
                             borderWidth:0.5,
@@ -118,7 +184,6 @@ const VideoPlayer = () =>
                     </View>
                     <View>
                         <Animated.Text 
-                        onPress={()=>onTap()}
                         numberOfLines={TextValue}
                         style={{
                             color:"#fff",
@@ -139,8 +204,9 @@ const VideoPlayer = () =>
                     position:"absolute"
                 }}>
                     <FontAwesome5
+                    onPress={()=>onDoubleTap()}
                     name='heart'
-                    solid={false}
+                    solid={(isLiked)?true:false}
                     color={theme.colors.TextColor}
                     size={30}
                     style={{
@@ -169,7 +235,6 @@ const VideoPlayer = () =>
                             height:5,
                             width:10
                         }
-                        
                     }}
                     />
                     <FontAwesome5
@@ -183,8 +248,62 @@ const VideoPlayer = () =>
                     />
                    
                 </View>
+                <View style={{
+                    position:"absolute",
+                    bottom:10,
+                    width:width
+                }}>
+                    <Slider
+                    maximumValue={videoLength}
+                    value={currentPos}
+                    minimumValue={0}
+                    minimumTrackTintColor="#fff"
+                    maximumTrackTintColor="silver"
+                    thumbTintColor="transparent"
+                    allowTouchTrack={true}
+                    style={{
+                        width:"100%",
+                        height:40,
+                    }}
+                    onValueChange={(e)=>seekToVideo(e)}
+                    onSlidingComplete={(e)=>seekComplete()}
+                    />
+                </View>
+                <Animated.View
+                style={[{
+                    position:"absolute",
+                    top:height/2-20,
+                    alignSelf:"center",
+                    elevation:10,
+                    transform:[{
+                        scale:heartAnim.current,
+                    },{
+                        rotate: roatateAnim.current.interpolate({
+                            inputRange:[0,1],
+                            outputRange:["0deg" , "30deg"]
 
-
+                        })
+                    },{
+                        translateY: TranslateAnim.current.interpolate({
+                            inputRange:[0,1],
+                            outputRange:[0, -height/2]
+                        })
+                    }]
+                }]}
+                >
+                    <FontAwesome5
+                    name={"heart"}
+                    size={70}
+                    color={"violet"}
+                    solid = {true}
+                    />
+                </Animated.View>
+            </View>
+            </TapGestureHandler>
+            </TapGestureHandler>
+        
+            </GestureHandlerRootView>
+           
             
         </SafeAreaView>
     )
