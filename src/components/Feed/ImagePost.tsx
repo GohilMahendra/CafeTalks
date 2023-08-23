@@ -1,12 +1,11 @@
 import React, { useContext, useRef, useState } from 'react'
-import { View,Text,Image,TouchableOpacity, useWindowDimensions, Animated } from 'react-native'
+import { View,Text,Vibration,Image,TouchableOpacity, useWindowDimensions, Animated } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import Feather from 'react-native-vector-icons/Feather'
 import { GestureHandlerRootView, TapGestureHandler } from 'react-native-gesture-handler'
-import { tapGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/TapGestureHandler'
-import { colors } from '../../globals/theme'
-
+import MaskedView from "@react-native-masked-view/masked-view";
+import LinearGradient from 'react-native-linear-gradient'
 const ImagePost = () =>
 {
 
@@ -29,6 +28,7 @@ const ImagePost = () =>
     let positionX = useRef(new Animated.Value(width/2))
     const onDoubleTap = () =>
     {
+        Vibration.vibrate()
         TranslateAnim.current.setValue(0)
         roatateAnim.current.setValue(0)
         heartAnim.current.setValue(0)
@@ -77,7 +77,7 @@ const ImagePost = () =>
                     flexDirection:"row"
                 }}>
                 <Image
-                source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJra-BRmSG5PVgtZDKJ-CfpWW1kcJ4KNGGXw&usqp=CAU"}}
+                source={{uri:"https://www.filmibeat.com/wimgm/500x70/mobi/2019/10/prabhas_23.jpg"}}
                 style={{
                     height:50,
                     width:50,
@@ -86,15 +86,24 @@ const ImagePost = () =>
                     marginRight:10
                 }}
                 />
-                <Text style={{
+                <View>              
+                     <Text style={{
                     color:textColor,
                     fontSize:15,
-                    textAlignVertical:"top",
                     marginRight:10,
                     fontWeight:"700"
-                }}>
+                     }}>
                     example_userName
-                </Text>
+                      </Text>
+                      <Text style={{
+                    color:theme.colors.PlaceHolderColor,
+                    fontSize:15,
+                    marginRight:10,
+                    fontWeight:"700"
+                     }}>
+                    example_userName
+                      </Text>
+                </View>
                 </View>
                 <View style={{
                     flexDirection:"row",
@@ -145,7 +154,7 @@ const ImagePost = () =>
                         onActivated={() => onDoubleTap()}
                     >
                             <Image
-                            source={{uri:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJra-BRmSG5PVgtZDKJ-CfpWW1kcJ4KNGGXw&usqp=CAU"}}
+                            source={{uri:"https://www.filmibeat.com/wimgm/500x70/mobi/2019/10/prabhas_23.jpg"}}
                             style={{
                                 flex:1,
                                 width:width,
@@ -214,12 +223,25 @@ const ImagePost = () =>
                     }]
                 }]}
                 >
-                    <FontAwesome5Icon
-                    name={"heart"}
-                    size={70}
-                    color={"violet"}
-                    solid = {true}
-                    />
+                  
+                    <MaskedView
+                    maskElement={ <FontAwesome5Icon
+                        name={"heart"}
+                        size={70}
+                        color={"violet"}
+                        solid = {true}
+                        />}
+                    >
+                          <LinearGradient 
+                        style={{
+                            height:70,
+                            width:70,
+                        }}
+                      colors={[theme.colors.gradient_primary,theme.colors.gradient_secondry]}
+                    ></LinearGradient>
+                    </MaskedView>
+                   
+                   
             </Animated.View>
          </View>
     )

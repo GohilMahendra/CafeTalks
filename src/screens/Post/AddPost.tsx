@@ -3,12 +3,13 @@ import { View , Text, Modal , Dimensions, TouchableOpacity, TextInput, KeyboardA
 import FontAwesome5 from "react-native-vector-icons/FontAwesome";
 import Entypo from "react-native-vector-icons/Entypo";
 import Feather from "react-native-vector-icons/Feather";
-import { ThemeContext } from '../../../globals/ThemeContext';
+import { ThemeContext } from '../../globals/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { StyleSheet } from 'react-native';
 import {launchCamera,launchImageLibrary} from "react-native-image-picker";
 import { Image } from 'react-native-elements';
+import { Storage } from "aws-amplify";
 const { width, height } = Dimensions.get("window")
 const AddPost = () =>
 {
@@ -55,6 +56,21 @@ const AddPost = () =>
         {
 
         }
+    }
+
+    const uploadMedia = async (file) => {
+        try {
+          const result = await Storage.put(file.name, file);
+          return result.key; // This is the S3 key for the uploaded file
+        } catch (error) {
+          console.error('Error uploading media:', error);
+        
+        }
+      };
+    const CreatePost = () =>
+    {
+
+        
     }
     return(
         <KeyboardAvoidingView style={{
@@ -183,6 +199,7 @@ const AddPost = () =>
             </View>
 
             <Modal
+            animationType="slide"
             visible={captionModal}
             transparent={true}
             > 
@@ -224,14 +241,13 @@ const AddPost = () =>
                 }}>
                 <TextInput
                 value={caption}
+                scrollEnabled = {false}
                 onChangeText={(text:string)=>setcaption(text)}
-                disableFullscreenUI={true}
                 style={{
                     textAlignVertical:"top",
                     color: theme.colors.TextColor,
                     fontSize:15,
                     elevation:5,
-                    height:"25%",
                     borderRadius:20,
                     marginVertical:20,
                     padding:20,
@@ -239,7 +255,9 @@ const AddPost = () =>
                 }}
                 placeholderTextColor={theme.colors.TextColor}
                 placeholder= {"add caption here ..."}
-                numberOfLines={5}
+                maxLength={500}
+                numberOfLines={10}
+                multiline = {true}
                 />
                
                 </View>

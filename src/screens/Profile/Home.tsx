@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useRef, useState } from 'react'
-import { View , Text, FlatList, useWindowDimensions } from 'react-native'
+import { View,Modal, Text, FlatList,TouchableWithoutFeedback, useWindowDimensions } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import VideoPost from '../../components/Feed/VideoPost'
 import ImagePost from '../../components/Feed/ImagePost'
@@ -19,24 +19,10 @@ const Home = () =>
             url:"",
             type:"image"
         },
-        {
-            id:2,
-            url:"",
-            type:"image"
-        },
-        {
-            id:3,
-            url:"",
-            type:"image"
-        },
-        {
-            id:4,
-            url:"",
-            type:"image"
-        }
     ])
     const [visibleIndex, setVisibleIndex] = useState<number | null>(null)
     const {height,width} = useWindowDimensions()
+    const [showComments,setShowComments] = useState(false)
 
     const {theme} = useContext(ThemeContext)
     const cellRefs = useRef<any>({})
@@ -45,7 +31,7 @@ const Home = () =>
             <View style={{
            
             }}>
-            <ImagePost/>
+            <VideoPost visible={visibleIndex == index}/>
             </View>
         )
     }
@@ -76,11 +62,48 @@ const Home = () =>
             data={feedPosts}
             renderItem={({item,index})=>renderFeedComponent({item,index})}
             keyExtractor={(item)=>(item.id.toString())}
-            onViewableItemsChanged={handleViewableItemsChanged}
-            viewabilityConfig={viewConfigRef.current}
+            // onViewableItemsChanged={handleViewableItemsChanged}
+            // viewabilityConfig={viewConfigRef.current}
             snapToInterval={height-200}
             />
             
+            <Modal
+            animationType='slide'
+            visible = {showComments}
+            
+            >
+                <View 
+                style={{
+                    flex:1,
+                    backgroundColor:"rgba(0,0,0,0.7)",
+                    justifyContent:"flex-end"
+                }}>
+
+                        <View 
+                        style={{
+                        borderTopLeftRadius:20,
+                        borderTopRightRadius:20,
+                        backgroundColor:theme.colors.ColorSecondary,
+                        height:"70%",
+                        elevation:20,
+                        width:width
+
+                        }}
+                        >
+                            <View
+                            style={{
+                                height:5,
+                                width:100,
+                                backgroundColor:theme.colors.PlaceHolderColor,
+                                borderRadius:5,
+                                alignSelf:"center",
+                                margin:20
+                            }}
+                            />
+                        </View>
+                </View>
+
+            </Modal>
 
           
         </View>

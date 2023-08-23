@@ -1,9 +1,12 @@
-import React, { forwardRef, useContext, useEffect, useImperativeHandle, useState } from 'react'
-import { View,Text,Image,TouchableOpacity, useWindowDimensions } from 'react-native'
+import React, {  useContext, useEffect, useRef, useState } from 'react'
+import { View,Text,Image,TouchableOpacity, useWindowDimensions, Animated } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
+import Feather from 'react-native-vector-icons/Feather'
 import Video from 'react-native-video'
-
+import { GestureHandlerRootView, TapGestureHandler } from 'react-native-gesture-handler'
+import MaskedView from '@react-native-masked-view/masked-view'
+import LinearGradient from 'react-native-linear-gradient'
 
 type VideoPostProps = {
     visible:boolean
@@ -13,20 +16,66 @@ const VideoPost = React.memo((props:VideoPostProps) =>
 
     const {theme} = useContext(ThemeContext)
     const {width,height} = useWindowDimensions()
-    const textColor = "#F5F5F5"
+    const textColor = "#fff"
     const [paused,setPaused] = useState(false)
-    const [liked,setIsLiked] = useState(false)
+    const [liked,setLiked] = useState(false)
     const { visible } = {...props}
+    const heartAnim = useRef(new Animated.Value(0));
+    const TranslateAnim = useRef(new Animated.Value(0))
+    const roatateAnim = useRef(new Animated.Value(0))
+    const doubleTapRef = useRef()
+    let positionY = useRef(new Animated.Value(height/2 - 20))
+    let positionX = useRef(new Animated.Value(width/2))
+    const Description = `After hearing that his brother's divorce is still happening, 
+    Harvey lashes out at Louis when he asks Harvey 
+    to fill in for him at a meeting so he can spend 
+    the afternoon with Sheila. Louis then decides it's 
+    time for the two of them to work on their 
+    relationship`
+    const onDoubleTap = () =>
+    {
+        console.log("double perss")
+    
+        Animated.sequence([
+            // increase size
+            Animated.timing(heartAnim.current, {
+                toValue: 1.7,
+                duration: 200,
+                useNativeDriver: false
+            }),
+            Animated.timing(roatateAnim.current, {
+                toValue: 1,
+                duration: 100,
+                useNativeDriver: false
+            }),
+            Animated.timing(roatateAnim.current, {
+                toValue: 0,
+                duration: 100,
+                useNativeDriver: false
+            }),
+            Animated.timing(TranslateAnim.current, {
+                toValue: 1,
+                duration: 200,
+                useNativeDriver: false
+            }),
+
+        ]).start(()=>{
+            TranslateAnim.current.setValue(0)
+            roatateAnim.current.setValue(0)
+            heartAnim.current.setValue(0)
+            setLiked(true)
+        });
+    }
 
     useEffect(()=>{
-        if(visible && paused)
-        {
-            setPaused(false)
-        }
-        else
-        {
-            setPaused(true)
-        }
+        // if(visible && paused)
+        // {
+        //     setPaused(false)
+        // }
+        // else
+        // {
+        //     setPaused(true)
+        // }
     },[visible])
     return(
         <View style={{
@@ -98,16 +147,119 @@ const VideoPost = React.memo((props:VideoPostProps) =>
                 </View>
 
             </View>
-            <Video
-            repeat
-            paused={paused}
-            resizeMode="cover"
-            style={{
-                height: height - 200,
-                width:width
+                    
+            <GestureHandlerRootView
+            onTouchStart={(e)=>{
+                positionX.current.setValue(e.nativeEvent.locationX) 
+                positionY.current.setValue(e.nativeEvent.locationY)
             }}
-            source={require("../../..//assets/videos/aui.mp4")}
-            ></Video>
+            >
+                    <TapGestureHandler
+                    waitFor={doubleTapRef}
+                    onActivated={() => setPaused(!paused)}
+                    >
+                        <TapGestureHandler
+                            ref={doubleTapRef}
+                            numberOfTaps={2}
+                            maxDelayMs={500}
+                            onActivated={() => onDoubleTap()}
+                        >
+                        <View>
+                        <Video
+                        repeat
+                        paused={paused}
+                        resizeMode="cover"
+                        style={{
+                            height: height - 200,
+                            width:width
+                        }}
+                        source={require("../../../assets/videos/aui.mp4")}
+                        />
+                        </View>
+                        </TapGestureHandler>
+                        </TapGestureHandler>
+                        </GestureHandlerRootView>
+            <View style={{
+                 padding:20,
+            }}>
+          
+            <View style={{
+                flexDirection:"row",
+
+            }}>
+                    <FontAwesome5Icon
+                    onPress={()=>setLiked(!liked)}
+                    name='heart'
+                    size={30}
+                    solid = {liked}
+                    color={(liked)?"red":theme.colors.TextColor}
+                    style={{
+                        marginRight:20
+                    }}
+                    />
+                    <Feather
+                    name='message-square'
+                    size={30}
+                    color={theme.colors.TextColor}
+                    style={{
+                        marginRight:20
+                    }}
+                    />
+                     <Feather
+                    name='send'
+                    size={30}
+                    color={theme.colors.TextColor}
+                    style={{
+                        marginRight:20
+                    }}
+                    />
+            </View>
+            <Text style={{
+                color: theme.colors.TextColorSecondary,
+                flexWrap:"wrap"
+            }}>{Description}</Text>
+            </View>
+            <Animated.View
+                style={[{
+                    position:"absolute",
+                    top:positionY.current,
+                    left:positionX.current,
+                    elevation:10,
+                    transform:[{
+                        scale:heartAnim.current,
+                    },{
+                        rotate: roatateAnim.current.interpolate({
+                            inputRange:[0,1],
+                            outputRange:["0deg" , "30deg"]
+
+                        })
+                    },{
+                        translateY: TranslateAnim.current.interpolate({
+                            inputRange:[0,1],
+                            outputRange:[0, -height/2]
+                        })
+                    }]
+                }]}
+                >
+    
+                    <MaskedView
+                    maskElement={ <FontAwesome5Icon
+                        name={"heart"}
+                        size={70}
+                        color={"violet"}
+                        solid = {true}
+                        />}
+                    >
+                          <LinearGradient 
+                        style={{
+                            height:70,
+                            width:70,
+                        }}
+                      colors={[theme.colors.gradient_primary,theme.colors.gradient_secondry]}
+                    ></LinearGradient>
+                    </MaskedView>   
+            </Animated.View>
+          
          </View>
     )
 

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import { View , Text } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
+import ChatItem from '../../components/chat/ChatItem'
 
 const Chat = () =>
-{
+{   
  
     const { theme } = useContext(ThemeContext)
     return(
@@ -11,7 +12,7 @@ const Chat = () =>
             flex:1,
             backgroundColor: theme.colors.ColorBackground
         }}>
-            <Text>Home</Text>
+            <ChatItem></ChatItem>
         </View>
     )
 }

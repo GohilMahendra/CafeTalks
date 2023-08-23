@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3cafetalksstorage63496621",
+  "bucketName": "cafetalks-storage-63496621",
+  "policyUUID": "0205bc00",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

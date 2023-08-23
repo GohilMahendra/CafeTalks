@@ -8,7 +8,7 @@ import SignIn from '../screens/SignIn';
 import ForgotPassword from '../screens/ForgotPassword';
 import ResetPassword from '../screens/ResetPassword';
 import ProfileTabNavigation, { ProfileTabParams } from './ProfileTabNavigation';
-import AddPost from "../screens/Profile/Post/AddPost";
+import AddPost from "../screens/Post/AddPost";
 import { Auth } from 'aws-amplify';
 import SplashScreen from '../screens/SplashScreen/SplashScreen';
 import StoryViewer from '../screens/Stories/StoryViewer';

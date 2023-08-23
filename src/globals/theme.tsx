@@ -6,15 +6,19 @@ export const colors = {
     white: "#FFF",
     black: "#010101",
     cream: "#FFFAF0",
-    lightGrey: "#F5F5F5",
+    lightGrey: "gray",
     silver: "#C0C0C0",
     gold: "#FFD700",
-    purple: "#6528F7",
+    purple: "#4B0082",
     transparent: "transparent",
     violet:"#800080",
+    lightSilver:"#d8d8d8",
+    charcoal: "#2E4052",
+    richBlack: "#0E131F",
+    dreftBlue: "#38405F",
+    hollywood: "#DE369D"
     
 }
-
 export const fontTypes = 
 {
     CinzelBold:"Cinzel-Bold",
@@ -48,28 +52,37 @@ interface colorsType
     ButtonBackgroundColor: string,
     TextColor: string,
     PlaceHolderColor: string,
+    TextColorSecondary: string,
+    gradient_primary: string,
+    gradient_secondry: string
 }
 
 export const LightColors:colorsType = {
-    ColorPrimary:colors.electricBlue,
-    ColorSecondary:colors.white,
+    ColorPrimary:colors.hollywood,
+    ColorSecondary:"#EEEEEE",
     ColorBackground:colors.white,
     HighlightColor:colors.transparent,
     ErrorColor:colors.red,
     ButtonBackgroundColor:colors.violet,
     TextColor:colors.black,
-    PlaceHolderColor: colors.silver
+    PlaceHolderColor: colors.silver,
+    TextColorSecondary: colors.lightGrey,
+    gradient_primary: colors.hollywood,
+    gradient_secondry: colors.white
 }
 
 export const DarkColors:colorsType = {
-    ColorPrimary:colors.electricBlue,
+    ColorPrimary:colors.purple,
     ColorSecondary: colors.twitterBlack,
     ColorBackground:colors.black,
     HighlightColor:"transparent",
     ErrorColor:colors.red,
     ButtonBackgroundColor:colors.electricBlue,
     TextColor:colors.offWhite,
-    PlaceHolderColor: colors.silver
+    PlaceHolderColor: colors.silver,
+    TextColorSecondary: colors.lightGrey,
+    gradient_primary: colors.purple,
+    gradient_secondry: colors.black
 }
 
 export interface ThemeType {
