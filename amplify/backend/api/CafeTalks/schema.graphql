@@ -1,10 +1,8 @@
-type User @model @auth(rules: [{allow: private}]) {
+type User @model @auth(rules: [{allow: private}, {allow: owner}]) {
   id: ID!
   name: String
   user_name: String
   bio: String
   email: String
   profile_picture: AWSURL
-  untitledfield: String
-}
- 
+} 

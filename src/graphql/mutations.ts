@@ -14,12 +14,12 @@ export const createUser = /* GraphQL */ `
       bio
       email
       profile_picture
-      untitledfield
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }
@@ -36,12 +36,12 @@ export const updateUser = /* GraphQL */ `
       bio
       email
       profile_picture
-      untitledfield
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }
@@ -58,12 +58,12 @@ export const deleteUser = /* GraphQL */ `
       bio
       email
       profile_picture
-      untitledfield
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }

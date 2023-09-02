@@ -1,11 +1,15 @@
 import React,{useContext, useRef, useState} from 'react'
-import { TouchableOpacity,View,TextInput,Dimensions,Text} from 'react-native';
+import { TouchableOpacity,View,TextInput,Dimensions,Text, Alert, SafeAreaView, StyleSheet} from 'react-native';
 import { Auth } from "aws-amplify";
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackRoutesParams } from '../../navigation/RootNavigation';
 import { ThemeContext } from '../../globals/ThemeContext';
 import Header from '../../components/global/Header';
+import { API, graphqlOperation } from "aws-amplify";
+import { createUser  } from "../../graphql/mutations";
+import { CreateUserInput } from '../../API';
+import { colors } from '../../globals/theme';
 const {height,width} = Dimensions.get("window")
 const OtpVerification = () =>
 {
@@ -15,8 +19,34 @@ const OtpVerification = () =>
     const navigation = useNavigation<NativeStackNavigationProp<RootStackRoutesParams,"Otpverification">>()
     const route = useRoute<RouteProp<RootStackRoutesParams,"Otpverification">>()
     const userName = route.params.userName || ""
+    const email = route.params.email || ""
+    const fullName = route.params.fullName || ""
+    const sub = route.params.sub 
+    const password = route.params.password
 
     const {theme} = useContext(ThemeContext)
+
+    const registerUser = async() =>
+    {
+        const input:CreateUserInput = {
+            bio:"",
+            email:email,
+            id:sub,
+            name: fullName,
+            profile_picture:null,
+            user_name:userName
+        }
+        try
+        {
+            const response = await API.graphql(graphqlOperation(createUser,{input}))
+            console.log(response)
+        }
+        catch(err)
+        {
+            Alert.alert("Error",JSON.stringify(err))
+        }
+
+    }
     const changeOTP = (value:string,index:number) =>
     {
         if(value && index < otpRef.current.length - 1 )
@@ -67,7 +97,10 @@ const OtpVerification = () =>
         try
         {
             const signUp = await Auth.confirmSignUp(userName,otp)
-            navigation.navigate("ProfileTab")
+            const AutoSignIn = await Auth.signIn(userName, password)
+            console.log(JSON.stringify(AutoSignIn))
+            await registerUser()
+           // navigation.navigate("SignIn")
         }
         catch(err:any)
         {
@@ -79,23 +112,16 @@ const OtpVerification = () =>
         navigation.goBack()
     }
     return(
-        <View style={{flex:1,justifyContent:"center",padding:20,backgroundColor:theme.colors.ColorBackground}}>
-           <View style={{
-            position:"absolute",
-            top:5
-           }}>
+        <SafeAreaView style={[styles.container,{
+            backgroundColor:theme.colors.ColorBackground
+        }]}>
+           <View style={styles.headerContainer}>
            <Header
            screenName='OTP verification'
            onBackPress={backPress}
            />
            </View>
-           <View style={{
-            flexDirection:"row",
-            alignItems:'center',
-            alignSelf:"center",
-            justifyContent:"space-between",
-            marginVertical:50
-           }}>
+           <View style={styles.otpContainer}>
             {
                 otpArr.map((OtpBox:string,index:number)=>{
                     return(
@@ -108,22 +134,10 @@ const OtpVerification = () =>
                             keyboardType="numeric"
                             value={OtpBox}
                             maxLength={1}
-                            style={{
-                                fontSize:20,
-                                height:70,
-                                width:50,
-                                borderWidth:1,
+                            style={[styles.otpInput,{
                                 color:theme.colors.ColorPrimary,
                                 borderColor:theme.colors.ColorPrimary,
-                                borderRadius:10,
-                                justifyContent:'center',
-                                alignItems:'center',
-                                alignContent:"center",
-                                margin:5,
-                                textAlign:'center',
-                                textAlignVertical:'center'
-                            }}
-
+                            }]}
                             />
                     )
                 })
@@ -132,20 +146,61 @@ const OtpVerification = () =>
            </View>
            <TouchableOpacity
            onPress={()=>onSubmit()}
-           style={{
+           style={[styles.btnSubmit,{
             backgroundColor:theme.colors.ColorPrimary,
-            padding:20,
-            borderRadius:15,
-            justifyContent:"center",
-            alignItems:"center"
-           }}
+           }]}
            >
-            <Text style={{
-                fontSize:20,
-                color:"#fff"
-            }}>Submit</Text>
+            <Text style={styles.textSubmit}>Submit</Text>
            </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     )
 }
 export default OtpVerification
+const styles = StyleSheet.create({
+    container:
+    {
+        flex:1,
+        justifyContent:"center",
+        padding:20,
+    },
+    headerContainer:
+    {
+        position:"absolute",
+        top:5
+    },
+    otpContainer:
+    {
+        flexDirection:"row",
+        alignItems:'center',
+        alignSelf:"center",
+        justifyContent:"space-between",
+        marginVertical:50
+    },
+    otpInput:
+    {
+        fontSize:20,
+        height:70,
+        width:50,
+        borderWidth:1,
+        borderRadius:10,
+        justifyContent:'center',
+        alignItems:'center',
+        alignContent:"center",
+        margin:5,
+        textAlign:'center',
+        textAlignVertical:'center'
+    },
+    btnSubmit:
+    {
+        padding:20,
+        borderRadius:15,
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    textSubmit:
+    {
+        fontSize:20,
+        color: colors.white
+    }
+
+})

@@ -17,7 +17,6 @@ type EagerUser = {
   readonly bio?: string | null;
   readonly email?: string | null;
   readonly profile_picture?: string | null;
-  readonly untitledfield?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -33,7 +32,6 @@ type LazyUser = {
   readonly bio?: string | null;
   readonly email?: string | null;
   readonly profile_picture?: string | null;
-  readonly untitledfield?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

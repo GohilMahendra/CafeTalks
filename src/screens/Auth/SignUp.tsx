@@ -34,10 +34,14 @@ const SignUp = () =>
                 }
             })
            
-            console.log(signUpResponse)
-
+            const sub = signUpResponse.userSub
+            
             navigation.navigate("Otpverification",{
-                userName:userName
+                userName:userName,
+                email: email,
+                fullName: fullName,
+                sub: sub,
+                password: password
             })
         }
         catch(err:any)

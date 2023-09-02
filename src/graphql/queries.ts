@@ -11,12 +11,12 @@ export const getUser = /* GraphQL */ `
       bio
       email
       profile_picture
-      untitledfield
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
       __typename
     }
   }
@@ -35,12 +35,12 @@ export const listUsers = /* GraphQL */ `
         bio
         email
         profile_picture
-        untitledfield
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
         __typename
       }
       nextToken
@@ -69,12 +69,12 @@ export const syncUsers = /* GraphQL */ `
         bio
         email
         profile_picture
-        untitledfield
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
         __typename
       }
       nextToken

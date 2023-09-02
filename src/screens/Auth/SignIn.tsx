@@ -41,7 +41,7 @@ import { colors } from '../../globals/theme'
             placeholder='userName ...'
             placeholderTextColor={theme.colors.PlaceHolderColor}
             style={[styles.inputText,{
-                color:theme.colors.ColorPrimary,
+                color:theme.colors.TextColor,
                 borderColor:theme.colors.HighlightColor,
                 backgroundColor: theme.colors.ColorSecondary
             }]}
@@ -52,7 +52,7 @@ import { colors } from '../../globals/theme'
             placeholder='password ...'
             placeholderTextColor={theme.colors.PlaceHolderColor}
             style={[styles.inputText,{
-                color:theme.colors.ColorPrimary,
+                color:theme.colors.TextColor,
                 borderColor:theme.colors.HighlightColor,
                 backgroundColor: theme.colors.ColorSecondary
             }]}

@@ -17,7 +17,11 @@ export type RootStackRoutesParams = {
     SignUp:undefined,
     ForgotPassword: undefined,
     Otpverification:{
-        userName: string
+        userName: string,
+        fullName: string,
+        email: string,
+        sub: string,
+        password: string
     },
     ResetPassword:{
         userName: string
