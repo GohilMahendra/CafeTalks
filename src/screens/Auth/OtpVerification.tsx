@@ -1,9 +1,11 @@
-import React,{useRef, useState} from 'react'
+import React,{useContext, useRef, useState} from 'react'
 import { TouchableOpacity,View,TextInput,Dimensions,Text} from 'react-native';
 import { Auth } from "aws-amplify";
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackRoutesParams } from '../navigation/RootNavigation';
+import { RootStackRoutesParams } from '../../navigation/RootNavigation';
+import { ThemeContext } from '../../globals/ThemeContext';
+import Header from '../../components/global/Header';
 const {height,width} = Dimensions.get("window")
 const OtpVerification = () =>
 {
@@ -13,6 +15,8 @@ const OtpVerification = () =>
     const navigation = useNavigation<NativeStackNavigationProp<RootStackRoutesParams,"Otpverification">>()
     const route = useRoute<RouteProp<RootStackRoutesParams,"Otpverification">>()
     const userName = route.params.userName || ""
+
+    const {theme} = useContext(ThemeContext)
     const changeOTP = (value:string,index:number) =>
     {
         if(value && index < otpRef.current.length - 1 )
@@ -62,17 +66,29 @@ const OtpVerification = () =>
         }
         try
         {
-            await Auth.confirmSignUp(userName,otp)
-            navigation.navigate("Home")
+            const signUp = await Auth.confirmSignUp(userName,otp)
+            navigation.navigate("ProfileTab")
         }
         catch(err:any)
         {
             console.log(JSON.stringify(err))
         }
     }
-
+    const backPress = () =>
+    {
+        navigation.goBack()
+    }
     return(
-        <View style={{flex:1,justifyContent:"center",padding:20,backgroundColor:"#192734"}}>
+        <View style={{flex:1,justifyContent:"center",padding:20,backgroundColor:theme.colors.ColorBackground}}>
+           <View style={{
+            position:"absolute",
+            top:5
+           }}>
+           <Header
+           screenName='OTP verification'
+           onBackPress={backPress}
+           />
+           </View>
            <View style={{
             flexDirection:"row",
             alignItems:'center',
@@ -97,8 +113,8 @@ const OtpVerification = () =>
                                 height:70,
                                 width:50,
                                 borderWidth:1,
-                                color:"#00E7F2",
-                                borderColor:"#00E7F2",
+                                color:theme.colors.ColorPrimary,
+                                borderColor:theme.colors.ColorPrimary,
                                 borderRadius:10,
                                 justifyContent:'center',
                                 alignItems:'center',
@@ -117,9 +133,9 @@ const OtpVerification = () =>
            <TouchableOpacity
            onPress={()=>onSubmit()}
            style={{
-            backgroundColor:"#00E7F2",
+            backgroundColor:theme.colors.ColorPrimary,
             padding:20,
-            borderRadius:20,
+            borderRadius:15,
             justifyContent:"center",
             alignItems:"center"
            }}

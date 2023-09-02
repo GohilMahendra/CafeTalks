@@ -75,8 +75,7 @@ const Search = () =>
         inputRef.current?.focus()
     })
 
-    return(
-        
+    return(   
         <View style={{
             flex:1,
             backgroundColor: theme.colors.ColorBackground

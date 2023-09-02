@@ -9,15 +9,15 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* CafeTalksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CafeTalksTests.m */; };
 		0C80B921A6F3F58F76C31292 /* libPods-CafeTalks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-CafeTalks.a */; };
+		0F01402BD3FB45E28B8A3AA3 /* Cormorant-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8603F26CD4743648778EABC /* Cormorant-Bold.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-CafeTalks-CafeTalksTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-CafeTalks-CafeTalksTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F3EFC3F5CC45452285CC861F /* Cinzel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDC6A57FC17D48349502506C /* Cinzel-Bold.ttf */; };
 		92E6CE7FAF08405D9AD89D33 /* Cinzel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1AF72F4E1D94145B310C7EA /* Cinzel-Regular.ttf */; };
-		0F01402BD3FB45E28B8A3AA3 /* Cormorant-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8603F26CD4743648778EABC /* Cormorant-Bold.ttf */; };
 		C864255B03AD463FAE35210A /* Cormorant-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5465BBA2F5FB440589A4D3E3 /* Cormorant-Regular.ttf */; };
+		F3EFC3F5CC45452285CC861F /* Cinzel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDC6A57FC17D48349502506C /* Cinzel-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,16 +42,16 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CafeTalks/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-CafeTalks-CafeTalksTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CafeTalks-CafeTalksTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-CafeTalks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CafeTalks.debug.xcconfig"; path = "Target Support Files/Pods-CafeTalks/Pods-CafeTalks.debug.xcconfig"; sourceTree = "<group>"; };
+		5465BBA2F5FB440589A4D3E3 /* Cormorant-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Cormorant-Regular.ttf"; path = "../assets/fonts/Cormorant-Regular.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-CafeTalks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CafeTalks.release.xcconfig"; path = "Target Support Files/Pods-CafeTalks/Pods-CafeTalks.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-CafeTalks-CafeTalksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CafeTalks-CafeTalksTests.debug.xcconfig"; path = "Target Support Files/Pods-CafeTalks-CafeTalksTests/Pods-CafeTalks-CafeTalksTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-CafeTalks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CafeTalks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CafeTalks/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-CafeTalks-CafeTalksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CafeTalks-CafeTalksTests.release.xcconfig"; path = "Target Support Files/Pods-CafeTalks-CafeTalksTests/Pods-CafeTalks-CafeTalksTests.release.xcconfig"; sourceTree = "<group>"; };
+		B1AF72F4E1D94145B310C7EA /* Cinzel-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Cinzel-Regular.ttf"; path = "../assets/fonts/Cinzel-Regular.ttf"; sourceTree = "<group>"; };
+		C8603F26CD4743648778EABC /* Cormorant-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Cormorant-Bold.ttf"; path = "../assets/fonts/Cormorant-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FDC6A57FC17D48349502506C /* Cinzel-Bold.ttf */ = {isa = PBXFileReference; name = "Cinzel-Bold.ttf"; path = "../assets/fonts/Cinzel-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B1AF72F4E1D94145B310C7EA /* Cinzel-Regular.ttf */ = {isa = PBXFileReference; name = "Cinzel-Regular.ttf"; path = "../assets/fonts/Cinzel-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C8603F26CD4743648778EABC /* Cormorant-Bold.ttf */ = {isa = PBXFileReference; name = "Cormorant-Bold.ttf"; path = "../assets/fonts/Cormorant-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5465BBA2F5FB440589A4D3E3 /* Cormorant-Regular.ttf */ = {isa = PBXFileReference; name = "Cormorant-Regular.ttf"; path = "../assets/fonts/Cormorant-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FDC6A57FC17D48349502506C /* Cinzel-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Cinzel-Bold.ttf"; path = "../assets/fonts/Cinzel-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +146,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A5D4003D0274476798E60354 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FDC6A57FC17D48349502506C /* Cinzel-Bold.ttf */,
+				B1AF72F4E1D94145B310C7EA /* Cinzel-Regular.ttf */,
+				C8603F26CD4743648778EABC /* Cormorant-Bold.ttf */,
+				5465BBA2F5FB440589A4D3E3 /* Cormorant-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,18 +168,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		A5D4003D0274476798E60354 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				FDC6A57FC17D48349502506C /* Cinzel-Bold.ttf */,
-				B1AF72F4E1D94145B310C7EA /* Cinzel-Regular.ttf */,
-				C8603F26CD4743648778EABC /* Cormorant-Bold.ttf */,
-				5465BBA2F5FB440589A4D3E3 /* Cormorant-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

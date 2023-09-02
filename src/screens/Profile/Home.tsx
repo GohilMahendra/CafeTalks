@@ -1,9 +1,11 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { View,Modal, Text, FlatList,TouchableWithoutFeedback, useWindowDimensions } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import VideoPost from '../../components/Feed/VideoPost'
 import ImagePost from '../../components/Feed/ImagePost'
 import VideoPlayer from '../../components/Feed/VideoPlayer'
+import { Auth } from 'aws-amplify'
+import { SafeAreaView } from 'react-native'
 
 export type FeedType = 
 {
@@ -49,8 +51,18 @@ const Home = () =>
     
     const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 100 })
     
+    const getCurrentUser = async() =>
+    {
+        const current_user  = await Auth.currentAuthenticatedUser({
+            bypassCache: true
+           })
+        console.log(current_user)
+    }
+    useEffect(()=>{
+        getCurrentUser()
+    },[])
     return(
-        <View style={{
+        <SafeAreaView style={{
             flex:1,
             backgroundColor:theme.colors.ColorBackground
         }}>
@@ -106,7 +118,7 @@ const Home = () =>
             </Modal>
 
           
-        </View>
+        </SafeAreaView>
     )
 }
 export default Home

@@ -1,14 +1,18 @@
-import React, { useContext } from 'react'
-import { View , Text, SafeAreaView } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { View , Text, SafeAreaView, FlatList } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import LinearGradient from 'react-native-linear-gradient'
 import { Image } from 'react-native-elements'
 import { DummyImage } from '../../globals/data'
 import { StyleSheet } from 'react-native'
+import { TouchableOpacity } from 'react-native'
+import Feather from 'react-native-vector-icons/Feather'
 
 const Profile = () =>
 {
     const { theme } = useContext(ThemeContext)
+    const [selectedMedia , setSelectedMedia] = useState<boolean>(true)
+    const [media,setMedia] = useState([])
     return(
         <SafeAreaView style={{
             flex:1,
@@ -27,7 +31,7 @@ const Profile = () =>
                     }}>{"USERNAME_NAE"}</Text>
                 </View>
                 <View style={{
-                    height:200,
+                    
                     padding:20
                 }}>
                 
@@ -83,6 +87,45 @@ const Profile = () =>
                     </View>
 
                 </View>
+
+                <View style={{
+                    flexDirection:"row",
+                    justifyContent:"space-between",
+                    margin:20
+                }}>
+                    <TouchableOpacity
+                    style={{
+                        borderBottomColor: theme.colors.TextColorSecondary,
+                        borderBottomWidth: 1,
+                        width: "30%",
+                        padding:10,
+                        alignItems:"center"
+                    }}
+                    >
+                        <Feather
+                        name= "grid"
+                        color={theme.colors.TextColor}
+                        size={30}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                    style={{
+                        borderBottomColor: theme.colors.TextColorSecondary,
+                        borderBottomWidth: 1,
+                        width: "30%",
+                        padding:10,
+                        alignItems:"center"
+                    }}
+                    >
+                        <Feather
+                        name= "video"
+                        color={theme.colors.TextColor}
+                        size={30}
+                        />
+                    </TouchableOpacity>
+                    <View/>
+                </View>
+               
 
         </SafeAreaView>
     )

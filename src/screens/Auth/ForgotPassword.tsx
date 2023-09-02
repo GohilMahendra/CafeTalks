@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { View,Text } from 'react-native'
-import { ThemeContext } from '../globals/ThemeContext'
+import { ThemeContext } from '../../globals/ThemeContext'
 import { TextInput } from 'react-native'
 import { Auth } from 'aws-amplify'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackRoutesParams } from '../navigation/RootNavigation'
-import Header from '../components/global/Header'
+import { RootStackRoutesParams } from '../../navigation/RootNavigation'
+import Header from '../../components/global/Header'
 
 const ForgotPassword = () =>
 {

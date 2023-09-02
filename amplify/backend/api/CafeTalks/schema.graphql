@@ -1,59 +1,10 @@
-type Likes @model @auth(rules: [{allow: public}]) {
+type User @model @auth(rules: [{allow: private}]) {
   id: ID!
-  LikePosts: [Post] @manyToMany(relationName: "LikesPost")
-}
-
-type Followings @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  FollowingsUser: User @hasOne
-}
-
-type Followers @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  FollowersUser: User @hasOne
-}
-
-type Comments @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  content: String
-  CommentUsers: User @hasOne
-  CommentPosts: [Post] @manyToMany(relationName: "CommentsPost")
-}
-
-enum MediaType {
-  VIDEO
-  IMAGE
-}
-
-type Story @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  content: String
-  Media: String
-  Typ: MediaType
+  name: String
+  user_name: String
+  bio: String
+  email: String
+  profile_picture: AWSURL
   untitledfield: String
-}
-
-type Post @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  content: String
-  images: [AWSURL]
-  media: AWSURL
-  likes: Int
-  comments: Int
-  UserPost: User @hasOne
-  CommentPost: [Comments] @manyToMany(relationName: "CommentsPost")
-  likess: [Likes] @manyToMany(relationName: "LikesPost")
-  users: [User] @manyToMany(relationName: "UserPost")
-}
-
-type User @model @auth(rules: [{allow: public, operations: [read, update]}, {allow: private, operations: [read, update]}, {allow: owner}]) {
-  id: ID!
-  UserName: String
-  Image: AWSURL
-  Bio: String
-  Name: String
-  UserFollower: Followers @belongsTo
-  UserFollowing: Followings @belongsTo
-  UPostser: [Post] @manyToMany(relationName: "UserPost")
 }
  

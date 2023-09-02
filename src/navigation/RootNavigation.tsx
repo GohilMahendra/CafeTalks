@@ -2,11 +2,11 @@ import React from 'react'
 import {View,Text  } from "react-native";
 import { NavigationContainer,  } from "@react-navigation/native";
 import { createNativeStackNavigator  } from "@react-navigation/native-stack";
-import SignUp from '../screens/SignUp';
-import OtpVerification from '../screens/OtpVerification';
-import SignIn from '../screens/SignIn';
-import ForgotPassword from '../screens/ForgotPassword';
-import ResetPassword from '../screens/ResetPassword';
+import SignUp from "../screens/Auth/SignUp";
+import OtpVerification from "../screens/Auth/OtpVerification";
+import SignIn from "../screens/Auth/SignIn";
+import ForgotPassword from '../screens/Auth/ForgotPassword';
+import ResetPassword from '../screens/Auth/ResetPassword';
 import ProfileTabNavigation, { ProfileTabParams } from './ProfileTabNavigation';
 import AddPost from "../screens/Post/AddPost";
 import { Auth } from 'aws-amplify';

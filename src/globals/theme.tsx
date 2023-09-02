@@ -63,26 +63,26 @@ export const LightColors:colorsType = {
     ColorBackground:colors.white,
     HighlightColor:colors.transparent,
     ErrorColor:colors.red,
-    ButtonBackgroundColor:colors.violet,
+    ButtonBackgroundColor:colors.hollywood,
     TextColor:colors.black,
     PlaceHolderColor: colors.silver,
     TextColorSecondary: colors.lightGrey,
     gradient_primary: colors.hollywood,
-    gradient_secondry: colors.white
+    gradient_secondry: colors.purple
 }
 
 export const DarkColors:colorsType = {
-    ColorPrimary:colors.purple,
+    ColorPrimary:colors.hollywood,
     ColorSecondary: colors.twitterBlack,
     ColorBackground:colors.black,
     HighlightColor:"transparent",
     ErrorColor:colors.red,
-    ButtonBackgroundColor:colors.electricBlue,
+    ButtonBackgroundColor:colors.hollywood,
     TextColor:colors.offWhite,
     PlaceHolderColor: colors.silver,
     TextColorSecondary: colors.lightGrey,
-    gradient_primary: colors.purple,
-    gradient_secondry: colors.black
+    gradient_primary: colors.violet,
+    gradient_secondry: colors.hollywood
 }
 
 export interface ThemeType {
