@@ -5,20 +5,20 @@ import { ThemeContext } from '../globals/ThemeContext'
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Feather from "react-native-vector-icons/Feather";
 import Search from '../screens/Profile/Search';
-import Profile from '../screens/Profile/Profile';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import ChatStackNavigation from './ChatStackNavigation';
+import ProfileStackNavigation from './ProfileStackNavigation';
 
-export type ProfileTabParams = 
+export type UserTabNavigationParams = 
 {
     Home: undefined,
     Search: undefined,
     ChatStack: undefined,
-    Profile: undefined
+    ProfileStack: undefined
 }
-const ProfileTabNavigation = () =>
+const UserTabNavigation = () =>
 {
-    const ProfileTab = createBottomTabNavigator<ProfileTabParams>()
+    const ProfileTab = createBottomTabNavigator<UserTabNavigationParams>()
     const { theme } = useContext(ThemeContext) 
     return(
         <ProfileTab.Navigator
@@ -78,7 +78,7 @@ const ProfileTabNavigation = () =>
             component={ChatStackNavigation}
             />
              <ProfileTab.Screen
-            name='Profile' 
+            name='ProfileStack' 
             options={{
                 tabBarIcon:({focused,color,size})=>
                 (
@@ -89,11 +89,11 @@ const ProfileTabNavigation = () =>
                     />
                 )
             }}
-            component={Profile}
+            component={ProfileStackNavigation}
             />
         </ProfileTab.Navigator>
     )
 
 }
 
-export default ProfileTabNavigation
+export default UserTabNavigation

@@ -1,3 +1,29 @@
+type Comments @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  content: String!
+  postID: ID! @index(name: "byPost")
+  User: User @hasOne
+}
+
+enum MediaType {
+  VIDEO
+  IMAGES
+}
+
+type Post @model @auth(rules: [{allow: private}]) {
+  id: ID!
+  content: String!
+  tags: [String]
+  images: [AWSURL]
+  short: AWSURL
+  type: MediaType!
+  likes: Int!
+  comments: Int!
+  userID: ID! @index(name: "byUser")
+  User: User @belongsTo(fields: ["userID"])
+  Comments: [Comments] @hasMany(indexName: "byPost", fields: ["id"])
+}
+
 type User @model @auth(rules: [{allow: private}, {allow: owner}]) {
   id: ID!
   name: String
@@ -5,4 +31,6 @@ type User @model @auth(rules: [{allow: private}, {allow: owner}]) {
   bio: String
   email: String
   profile_picture: AWSURL
-} 
+  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+}
+ 

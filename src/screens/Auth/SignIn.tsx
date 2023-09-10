@@ -22,7 +22,7 @@ import { colors } from '../../globals/theme'
        try
        {
             const result = await Auth.signIn(userName,password)
-            navigation.replace("ProfileTab")
+            navigation.replace("UserTab")
 
        }
        catch(err)
@@ -36,6 +36,7 @@ import { colors } from '../../globals/theme'
             backgroundColor: theme.colors.ColorBackground
         }]}>
             <TextInput
+            testID= {"input_userName"}
             value={userName}
             onChangeText={(text:string) => setUserName(text)}
             placeholder='userName ...'
@@ -47,6 +48,7 @@ import { colors } from '../../globals/theme'
             }]}
             />
             <TextInput
+            testID= {"input_password"}
             value={password}
             onChangeText={(text:string) => setPassword(text)}
             placeholder='password ...'
@@ -63,6 +65,7 @@ import { colors } from '../../globals/theme'
                 Forgot password ?
             </Text>
             <TouchableOpacity 
+            testID= {"btn_signIn"}
             onPress={()=>SignIn()}
             style={[styles.btnSignIn,{
                 backgroundColor:theme.colors.ButtonBackgroundColor
@@ -70,7 +73,7 @@ import { colors } from '../../globals/theme'
                 <Text style={styles.textSignIn}>Sign In</Text>
             </TouchableOpacity>
 
-            <Text 
+            <Text
             onPress={()=>navigation.navigate("SignUp")}
             style={{
                 fontSize:15,

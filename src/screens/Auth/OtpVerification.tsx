@@ -39,7 +39,7 @@ const OtpVerification = () =>
         try
         {
             const response = await API.graphql(graphqlOperation(createUser,{input}))
-            console.log(response)
+            navigation.navigate("UserTab")
         }
         catch(err)
         {
@@ -126,7 +126,7 @@ const OtpVerification = () =>
                 otpArr.map((OtpBox:string,index:number)=>{
                     return(
                             <TextInput
-                            id={index.toString()}
+                            key={index.toString()}
                             ref={(ref:any)=>{otpRef.current[index] = ref}}
                             onChangeText={(text:string) => changeOTP(text,index)}
                             onKeyPress={(event)=> previousFocus(event.nativeEvent.key,index)}

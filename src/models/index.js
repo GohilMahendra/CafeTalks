@@ -2,10 +2,16 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const MediaType = {
+  "VIDEO": "VIDEO",
+  "IMAGES": "IMAGES"
+};
 
-
-const { User } = initSchema(schema);
+const { Comments, Post, User } = initSchema(schema);
 
 export {
-  User
+  Comments,
+  Post,
+  User,
+  MediaType
 };

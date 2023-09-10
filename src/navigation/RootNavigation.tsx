@@ -7,11 +7,11 @@ import OtpVerification from "../screens/Auth/OtpVerification";
 import SignIn from "../screens/Auth/SignIn";
 import ForgotPassword from '../screens/Auth/ForgotPassword';
 import ResetPassword from '../screens/Auth/ResetPassword';
-import ProfileTabNavigation, { ProfileTabParams } from './ProfileTabNavigation';
 import AddPost from "../screens/Post/AddPost";
 import { Auth } from 'aws-amplify';
 import SplashScreen from '../screens/SplashScreen/SplashScreen';
 import StoryViewer from '../screens/Stories/StoryViewer';
+import UserTabNavigation from './UserTabNavigation';
 export type RootStackRoutesParams = {
     SignIn:undefined,
     SignUp:undefined,
@@ -26,7 +26,7 @@ export type RootStackRoutesParams = {
     ResetPassword:{
         userName: string
     }
-    ProfileTab: undefined,
+    UserTab: undefined,
     AddPost: undefined,
     SplashScreen:undefined,
     StoryViewer: undefined
@@ -40,7 +40,7 @@ const RootNavigation = () =>
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName = "ProfileTab">
+            initialRouteName = "SplashScreen">
                 <rootStack.Screen
                 name='SignIn'
                 component={SignIn}
@@ -62,8 +62,8 @@ const RootNavigation = () =>
                 component={ResetPassword}
                 />
                 <rootStack.Screen
-                name='ProfileTab'
-                component={ProfileTabNavigation}
+                name='UserTab'
+                component={UserTabNavigation}
                 />
                 <rootStack.Screen
                 name='AddPost'

@@ -54,6 +54,7 @@ const SignUp = () =>
         <View style={{flex:1,padding:20,justifyContent:'center',backgroundColor: theme.colors.ColorBackground}}>
             
             <TextInput 
+            testID={'input_userName'}
             onChangeText={(text:string)=>setUserName(text)}
             value={userName}
             placeholder='UserName ...'
@@ -65,6 +66,7 @@ const SignUp = () =>
             }]}/>
 
             <TextInput 
+            testID= {'input_fullName'}
             onChangeText={(text:string)=>setFullName(text)}
             value={fullName}
             placeholder='Full Name ...'
@@ -76,6 +78,7 @@ const SignUp = () =>
             }]}/>
            
             <TextInput 
+            testID= {"input_email"}
             onChangeText={(text:string)=>setEmail(text)}
             value={email}
             placeholder='email ...'
@@ -86,6 +89,7 @@ const SignUp = () =>
                 color: theme.colors.TextColor
             }]}/>
             <TextInput 
+            testID= {"input_password"}
             onChangeText={(text:string)=>setPassword(text)}
             value={password}
             placeholder='password ...'
@@ -104,6 +108,7 @@ const SignUp = () =>
             }}>Forgot Password ?
             </Text>
             <TouchableOpacity
+            testID= {"btn_signUp"}
             onPress={()=>SignUp()}
             style={[styles.BtnSubmit,{ backgroundColor: theme.colors.ButtonBackgroundColor}]}
             >

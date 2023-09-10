@@ -2,8 +2,7 @@ module.exports = {
   preset: 'react-native',
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-    "^.+\\.(js|jsx)$": "babel-jest",
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['**/__tests__/**/*.(ts|tsx)'],
@@ -22,6 +21,7 @@ module.exports = {
     "<rootDir>/__tests__/jest-setup.js"
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!@react-native|react-native)'
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|react-navigation|@react-navigation/.|@unimodules/.|unimodules|native-base|react-native-svg)"
   ],
+  
 };
