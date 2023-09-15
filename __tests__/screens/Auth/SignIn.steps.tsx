@@ -1,7 +1,7 @@
 import { render , screen,waitFor, fireEvent } from "@testing-library/react-native";
 import SignUp from "../../../src/screens/Auth/SignIn"
-import React from 'react'
-import {ThemeContext} from "../../../src/globals/ThemeContext";
+import React, { ReactNode, ReactPortal } from 'react'
+import {ThemeContext, ThemeProvider} from "../../../src/globals/ThemeContext";
 import { LightTheme } from "../../../src/globals/theme";
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'), // Use the actual module for non-mocked functions
@@ -11,7 +11,7 @@ jest.mock('@react-navigation/native', () => ({
       // Add other functions or properties you need for your test cases
     }),
   }));
-  
+
 describe("Sign Up flow test",()=>{
   let SignInComponent:any;
 
@@ -19,9 +19,9 @@ describe("Sign Up flow test",()=>{
   beforeEach(() => {
     // Render the SignUp component before each test
     SignInComponent = render(
-      <ThemeContext.Provider value={{theme:LightTheme,setTheme:jest.fn()}}>
+      <ThemeProvider>
         <SignUp/>
-      </ThemeContext.Provider>
+      </ThemeProvider>
     );
   });
 

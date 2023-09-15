@@ -13,6 +13,7 @@ import { launchImageLibrary } from 'react-native-image-picker'
 import { Auth, Storage,API,graphqlOperation  } from "aws-amplify";
 import { updateUser } from '../../graphql/mutations'
 import { UpdateUserInput } from '../../API'
+import RNFS from "react-native-fs";
 const EditProfile = () =>
 {
 
@@ -74,8 +75,10 @@ const EditProfile = () =>
             try
             {
             const fileName =UID+"/Profile/"+UID+".png"
+            const file = await RNFS.re(ProfilePicture,'base64')
 
-            const response = await Storage.put(fileName,"../../../assets/images/car.jpeg",{
+
+            const response = await Storage.put(fileName,file,{
                 contentType: 'image/png', 
                 level:"protected",
             
@@ -91,10 +94,8 @@ const EditProfile = () =>
         }
           
         }
-
-        return
-       
         const imagePath =await Storage.get(key)
+        console.log(imagePath)
         const input:UpdateUserInput={
             id: UID,
             profile_picture:imagePath,

@@ -41,13 +41,12 @@ const Profile = () =>
     const getUserDetails = async() =>
     {
         const currentUser = await Auth.currentAuthenticatedUser({
-            bypassCache: false
+            bypassCache: true
         })
         const user_id = currentUser.attributes.sub
         
         const user: GraphQLResult<any> = (await API.graphql(graphqlOperation(getUser,{id:user_id})))
       
-        console.log(JSON.stringify(user))
         setUser({
             bio: user.data?.getUser?.bio,
             image: user.data.getUser.profile_picture,

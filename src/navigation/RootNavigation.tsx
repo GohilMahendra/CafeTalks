@@ -12,6 +12,7 @@ import { Auth } from 'aws-amplify';
 import SplashScreen from '../screens/SplashScreen/SplashScreen';
 import StoryViewer from '../screens/Stories/StoryViewer';
 import UserTabNavigation from './UserTabNavigation';
+import SelectMedia from '../screens/Post/SelectMedia';
 export type RootStackRoutesParams = {
     SignIn:undefined,
     SignUp:undefined,
@@ -27,9 +28,13 @@ export type RootStackRoutesParams = {
         userName: string
     }
     UserTab: undefined,
-    AddPost: undefined,
+    AddPost: {
+        images: string[] | null,
+        video: string | null
+    },
     SplashScreen:undefined,
-    StoryViewer: undefined
+    StoryViewer: undefined,
+    SelectMedia: undefined
 }
 const RootNavigation = () =>
 {
@@ -40,7 +45,7 @@ const RootNavigation = () =>
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName = "SplashScreen">
+            initialRouteName = "SelectMedia">
                 <rootStack.Screen
                 name='SignIn'
                 component={SignIn}
@@ -76,6 +81,10 @@ const RootNavigation = () =>
                  <rootStack.Screen
                 name='StoryViewer'
                 component={StoryViewer}
+                />
+                <rootStack.Screen
+                name='SelectMedia'
+                component={SelectMedia}
                 />
             </rootStack.Navigator>
         </NavigationContainer>

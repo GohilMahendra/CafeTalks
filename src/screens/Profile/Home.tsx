@@ -54,12 +54,12 @@ const Home = () =>
     const getCurrentUser = async() =>
     {
         const current_user  = await Auth.currentAuthenticatedUser({
-            bypassCache: true
+            bypassCache: false
            })
         console.log(current_user)
     }
     useEffect(()=>{
-        getCurrentUser()
+       // getCurrentUser()
     },[])
     return(
         <SafeAreaView style={{
@@ -74,8 +74,8 @@ const Home = () =>
             data={feedPosts}
             renderItem={({item,index})=>renderFeedComponent({item,index})}
             keyExtractor={(item)=>(item.id.toString())}
-            // onViewableItemsChanged={handleViewableItemsChanged}
-            // viewabilityConfig={viewConfigRef.current}
+            onViewableItemsChanged={handleViewableItemsChanged}
+            viewabilityConfig={viewConfigRef.current}
             snapToInterval={height-200}
             />
             

@@ -24,6 +24,7 @@
     "react": "18.2.0",
     "react-native": "0.72.3",
     "react-native-elements": "^3.4.3",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.12.1",
     "react-native-gifted-chat": "^2.4.0",
     "react-native-image-crop-picker": "^0.40.0",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/plugin-transform-class-properties": "^7.22.5",
+    "@babel/plugin-transform-flow-strip-types": "^7.22.5",
     "@babel/plugin-transform-private-methods": "^7.22.5",
     "@babel/plugin-transform-private-property-in-object": "^7.22.11",
     "@babel/preset-env": "^7.20.0",
