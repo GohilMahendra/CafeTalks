@@ -8,21 +8,15 @@ import Search from '../screens/Profile/Search';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import ChatStackNavigation from './ChatStackNavigation';
 import ProfileStackNavigation from './ProfileStackNavigation';
+import { UserTabNavigationParams } from '../types/NavigationTypes';
 
-export type UserTabNavigationParams = 
-{
-    Home: undefined,
-    Search: undefined,
-    ChatStack: undefined,
-    ProfileStack: undefined
-}
 const UserTabNavigation = () =>
 {
     const ProfileTab = createBottomTabNavigator<UserTabNavigationParams>()
     const { theme } = useContext(ThemeContext) 
     return(
         <ProfileTab.Navigator
-        initialRouteName='ProfileStack'
+        initialRouteName='Home'
         screenOptions={({route})=>({
             tabBarHideOnKeyboard: true,
             tabBarStyle:{

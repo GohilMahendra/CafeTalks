@@ -8,34 +8,12 @@ import SignIn from "../screens/Auth/SignIn";
 import ForgotPassword from '../screens/Auth/ForgotPassword';
 import ResetPassword from '../screens/Auth/ResetPassword';
 import AddPost from "../screens/Post/AddPost";
-import { Auth } from 'aws-amplify';
 import SplashScreen from '../screens/SplashScreen/SplashScreen';
 import StoryViewer from '../screens/Stories/StoryViewer';
 import UserTabNavigation from './UserTabNavigation';
 import SelectMedia from '../screens/Post/SelectMedia';
-export type RootStackRoutesParams = {
-    SignIn:undefined,
-    SignUp:undefined,
-    ForgotPassword: undefined,
-    Otpverification:{
-        userName: string,
-        fullName: string,
-        email: string,
-        sub: string,
-        password: string
-    },
-    ResetPassword:{
-        userName: string
-    }
-    UserTab: undefined,
-    AddPost: {
-        images: string[] | null,
-        video: string | null
-    },
-    SplashScreen:undefined,
-    StoryViewer: undefined,
-    SelectMedia: undefined
-}
+import { RootStackRoutesParams } from '../types/NavigationTypes';
+
 const RootNavigation = () =>
 {
     const rootStack =createNativeStackNavigator<RootStackRoutesParams>()
@@ -45,7 +23,7 @@ const RootNavigation = () =>
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName = "SelectMedia">
+            initialRouteName = "SplashScreen">
                 <rootStack.Screen
                 name='SignIn'
                 component={SignIn}

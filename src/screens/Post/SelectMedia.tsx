@@ -62,7 +62,7 @@ const SelectMedia = () =>
             return
         }
         navigation.navigate("AddPost",{
-            images: images.length > 0 ? images:null,
+            images: images,
             video: video ? video : null
         })
 

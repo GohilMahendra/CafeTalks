@@ -52,13 +52,13 @@ type EagerPost = {
   readonly content: string;
   readonly tags?: (string | null)[] | null;
   readonly images?: (string | null)[] | null;
-  readonly short?: string | null;
   readonly type: MediaType | keyof typeof MediaType;
   readonly likes: number;
   readonly comments: number;
   readonly userID: string;
   readonly User?: User | null;
   readonly Comments?: (Comments | null)[] | null;
+  readonly short?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -72,13 +72,13 @@ type LazyPost = {
   readonly content: string;
   readonly tags?: (string | null)[] | null;
   readonly images?: (string | null)[] | null;
-  readonly short?: string | null;
   readonly type: MediaType | keyof typeof MediaType;
   readonly likes: number;
   readonly comments: number;
   readonly userID: string;
   readonly User: AsyncItem<User | undefined>;
   readonly Comments: AsyncCollection<Comments>;
+  readonly short?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

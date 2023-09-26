@@ -3,13 +3,13 @@ import { TouchableOpacity,View,TextInput,Dimensions,Text, Alert, SafeAreaView, S
 import { Auth } from "aws-amplify";
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackRoutesParams } from '../../navigation/RootNavigation';
 import { ThemeContext } from '../../globals/ThemeContext';
 import Header from '../../components/global/Header';
 import { API, graphqlOperation } from "aws-amplify";
 import { createUser  } from "../../graphql/mutations";
 import { CreateUserInput } from '../../API';
 import { colors } from '../../globals/theme';
+import { RootStackRoutesParams } from '../../types/NavigationTypes';
 const {height,width} = Dimensions.get("window")
 const OtpVerification = () =>
 {
@@ -29,11 +29,10 @@ const OtpVerification = () =>
     const registerUser = async() =>
     {
         const input:CreateUserInput = {
-            bio:"",
             email:email,
             id:sub,
             name: fullName,
-            profile_picture:null,
+            profile_picture:"",
             user_name:userName
         }
         try

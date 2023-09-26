@@ -1,12 +1,5 @@
 {
   "AppSyncApiName": "CafeTalks",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthCognitoUserPoolId": {
-    "Fn::GetAtt": [
-      "authCafeTalks",
-      "Outputs.UserPoolId"
-    ]
-  },
-  "AuthModeLastUpdated": "2023-09-01T10:32:40.334Z"
+  "DynamoDBEnableServerSideEncryption": false
 }

@@ -4,24 +4,27 @@ import { ThemeContext } from '../../globals/ThemeContext'
 import VideoPost from '../../components/Feed/VideoPost'
 import ImagePost from '../../components/Feed/ImagePost'
 import VideoPlayer from '../../components/Feed/VideoPlayer'
-import { Auth } from 'aws-amplify'
+import { API, Auth, Storage, graphqlOperation } from 'aws-amplify'
 import { SafeAreaView } from 'react-native'
+import { listPosts } from '../../graphql/queries'
+import {  ListPostsQuery, MediaType } from '../../API'
 
 export type FeedType = 
 {
-    id:number,
-    url:string,
-    type:"image" | "video"
+    id: string,
+    comments: number,
+    likes: number,
+    tags: string[],
+    type: MediaType,
+    images: string[],
+    video: string | null,
+    userName: string,
+    name: string,
+    profilePicture: string | null,
 }
 const Home = () =>
 {
-    const [feedPosts,setFeedPosts] = useState<FeedType[]>([
-        {
-            id:1,
-            url:"",
-            type:"image"
-        },
-    ])
+    const [feedPosts,setFeedPosts] = useState<FeedType[]>([])
     const [visibleIndex, setVisibleIndex] = useState<number | null>(null)
     const {height,width} = useWindowDimensions()
     const [showComments,setShowComments] = useState(false)
@@ -33,7 +36,18 @@ const Home = () =>
             <View style={{
            
             }}>
-            <VideoPost visible={visibleIndex == index}/>
+            <ImagePost
+            comments={item.comments}
+            id={item.id}
+            images={item.images}
+            likes={item.likes}
+            name={item.name}
+            profilePicture={item.profilePicture}
+            tags={item.tags}
+            type={item.type}
+            userName={item.userName}
+            key={item.id}
+            />
             </View>
         )
     }
@@ -51,15 +65,52 @@ const Home = () =>
     
     const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 100 })
     
-    const getCurrentUser = async() =>
+    const getPosts = async() =>
     {
         const current_user  = await Auth.currentAuthenticatedUser({
-            bypassCache: false
+            bypassCache: true
            })
-        console.log(current_user)
+        const UID = current_user.attributes.sub
+
+        const response:any= await API.graphql(
+            graphqlOperation(listPosts)
+          );
+        let Feed: FeedType[] = []
+          if(response.data?.listPosts?.items)
+          {
+
+            console.log(response.data?.listPosts?.items)
+            try
+            {
+             response.data.listPosts.items.forEach(async(data:any)=>{
+                const profile = await Storage.get(data?.User?.profile_picture)
+                Feed.push({
+                    comments: data.comments || 0,
+                    id: data.id,
+                    images: data.images,
+                    likes: data.likes,
+                    name: data.User.name,
+                    profilePicture:profile,
+                    tags:data.tags,
+                    userName: data.User?.user_name,
+                    type: data.type,
+                    video: data.short
+                })
+             })
+            }
+            catch(err)
+            {
+                console.log(err)
+            }
+          }
+        
+          setFeedPosts(Feed)
+          console.log(Feed)
     }
+       
+
     useEffect(()=>{
-       // getCurrentUser()
+        getPosts()
     },[])
     return(
         <SafeAreaView style={{

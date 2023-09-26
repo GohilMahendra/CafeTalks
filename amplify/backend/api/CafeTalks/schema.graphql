@@ -1,36 +1,30 @@
-type Comments @model @auth(rules: [{allow: private}]) {
+type Comment @model @auth(rules: [{allow: public}]) {
   id: ID!
   content: String!
   postID: ID! @index(name: "byPost")
-  User: User @hasOne
-}
-
-enum MediaType {
-  VIDEO
-  IMAGES
-}
-
-type Post @model @auth(rules: [{allow: private}]) {
-  id: ID!
-  content: String!
-  tags: [String]
-  images: [AWSURL]
-  short: AWSURL
-  type: MediaType!
-  likes: Int!
-  comments: Int!
+  Post: Post @belongsTo(fields: ["postID"])
   userID: ID! @index(name: "byUser")
   User: User @belongsTo(fields: ["userID"])
-  Comments: [Comments] @hasMany(indexName: "byPost", fields: ["id"])
 }
 
-type User @model @auth(rules: [{allow: private}, {allow: owner}]) {
+type Post @model @auth(rules: [{allow: public}]) {
   id: ID!
-  name: String
-  user_name: String
-  bio: String
-  email: String
-  profile_picture: AWSURL
-  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+  images: [String]!
+  video: String
+  like: Int!
+  comments: Int!
+  caption: String
+  userID: ID! @index(name: "byUser")
+  User: User @belongsTo(fields: ["userID"])
+  Comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
 }
- 
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  user_name: String!
+  email: String!
+  profile_picture: String
+  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+  Comments: [Comment] @hasMany(indexName: "byUser", fields: ["id"])
+}

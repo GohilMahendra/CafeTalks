@@ -15,7 +15,8 @@ const SplashScreen = () =>
     {
       try
       {
-      const user = await Auth.currentAuthenticatedUser({bypassCache: false})
+      const user = await Auth.currentAuthenticatedUser({bypassCache: true})
+      console.log(user)
       if(user)
       {
         navigation.replace("UserTab")

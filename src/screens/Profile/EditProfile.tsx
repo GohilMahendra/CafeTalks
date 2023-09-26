@@ -60,29 +60,22 @@ const EditProfile = () =>
 
     const updateProfile = async() =>
     {
-
-      
-
+        console.log("changes have done !!")
         if(!havechanges())
         return
 
-        const current_user = await Auth.currentAuthenticatedUser()
+        const current_user = await Auth.currentAuthenticatedUser({bypassCache: true})
         const UID =  current_user.attributes.sub
         let key: string = ""
         if(user_image != ProfilePicture && ProfilePicture)
         {
-           
             try
             {
-            const fileName =UID+"/Profile/"+UID+".png"
-            const file = await RNFS.re(ProfilePicture,'base64')
-
-
+            const fileName ="Profile/"+UID + "/" +UID+".png"
+            const file = await RNFS.readFile(ProfilePicture,"base64")
             const response = await Storage.put(fileName,file,{
                 contentType: 'image/png', 
                 level:"protected",
-            
-             
             })
     
             key = response.key
@@ -96,16 +89,22 @@ const EditProfile = () =>
         }
         const imagePath =await Storage.get(key)
         console.log(imagePath)
+        try
+        {
         const input:UpdateUserInput={
-            id: UID,
-            profile_picture:imagePath,
-            bio: bio,
-            name: fullName
+          id: UID,
+          bio:"random bio to Update",
+          profile_picture:"random string",
         }
         const response = await API.graphql(graphqlOperation(updateUser,{
             input
         }))
         console.log(JSON.stringify(response))
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
       
     }
 

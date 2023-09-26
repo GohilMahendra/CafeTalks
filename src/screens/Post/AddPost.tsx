@@ -1,20 +1,17 @@
 import React, { useContext, useState } from 'react'
 import { View ,ScrollView, Text, Modal , Dimensions, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform} from 'react-native'
-import FontAwesome5 from "react-native-vector-icons/FontAwesome";
-import Entypo from "react-native-vector-icons/Entypo";
-import Feather from "react-native-vector-icons/Feather";
 import { ThemeContext } from '../../globals/ThemeContext';
 import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { StyleSheet } from 'react-native';
-import {launchCamera,launchImageLibrary} from "react-native-image-picker";
-import { Image } from 'react-native-elements';
-import { Auth, Storage } from "aws-amplify";
-import { ViewBase } from 'react-native';
-import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
+import RNFS from 'react-native-fs'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackRoutesParams } from '../../navigation/RootNavigation';
 import Header from '../../components/global/Header';
+import { API, Auth, Storage, graphqlOperation ,} from 'aws-amplify';
+import uuid from 'react-native-uuid';
+import { CreatePostInput, MediaType } from "../../API";
+import { createPost } from '../../graphql/mutations';
 const { width, height } = Dimensions.get("window")
 const AddPost = () =>
 {
@@ -23,11 +20,67 @@ const AddPost = () =>
     const colors = theme.colors
     const navigation =  useNavigation<NativeStackNavigationProp<RootStackRoutesParams,"AddPost">>()
     const route = useRoute<RouteProp<RootStackRoutesParams,"AddPost">>()
-    const CreatePost = async() =>
+    const [caption,setCaption] = useState("")
+    const CreateNewPost = async() =>
     {
        
-        const images = route.params.images
+        const images:string[] = route.params.images
         const video = route.params.video
+        
+        const user = await Auth.currentAuthenticatedUser({
+            bypassCache: true
+        })
+        const UID  =  user.attributes.sub
+        const postID = uuid.v4()
+        let imageResponses:string[] = []
+        if(images.length > 0)
+        {
+            for (let i=0;i < images.length ; ++i )
+            {
+                const fileId = uuid.v4()
+                const fileName = fileId + ".png"
+                const imagePath = "Posts/" + UID + "/" + fileName
+                try
+                {
+                    // Upload the photo to S3
+                    
+                    const image = images[i]
+                    const imageResponse =await RNFS.readFile(image,"base64")
+                  
+                    const response = await Storage.put(imagePath,imageResponse,{
+                        contentType: 'image/png',
+                        level:"protected"
+                    })
+                   imageResponses.push(response.key)
+                  
+                }
+                catch(err)
+                {
+                    console.log(err)
+                }
+    
+            }
+
+            const input:CreatePostInput = 
+            {
+                
+                content: caption,
+                likes: 0,
+                type:MediaType.IMAGES,
+                images:imageResponses,
+                short:null,
+                userID: UID,
+                tags:[],
+                comments:0
+            }
+
+        
+            const response = await API.graphql(graphqlOperation(createPost,{
+                input
+            }))
+            console.log(JSON.stringify(response))
+
+        }
 
         
        
@@ -55,6 +108,8 @@ const AddPost = () =>
                 alignItems:"center"
             }}>
                 <TextInput
+                value={caption}
+                onChangeText={(text:string)=>setCaption(text)}
                 placeholder='Add caption for Post ...'
                 placeholderTextColor={theme.colors.TextColorSecondary}
                 
@@ -74,7 +129,7 @@ const AddPost = () =>
                
             
                 <TouchableOpacity 
-                onPress={()=>CreatePost()}
+                onPress={()=>CreateNewPost()}
                 style={{
                     borderRadius:20,
                     width:"100%",

@@ -2,18 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 import EditProfile from '../screens/Profile/EditProfile'
 import Profile from '../screens/Profile/Profile'
-
-export type ProfileStackParams = {
-    EditProfile: {
-        user_name: string,
-        full_name: string,
-        bio: string,
-        email: string,
-        profile_picture: string | null
-    },
-    Profile: undefined
-}
-
+import { ProfileStackParams } from '../types/NavigationTypes'
 const ProfileStackNavigation = () =>
 {
     const ChatStack = createNativeStackNavigator<ProfileStackParams>()

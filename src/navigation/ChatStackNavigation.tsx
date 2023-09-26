@@ -3,11 +3,7 @@ import React from 'react'
 import { View , Text } from 'react-native'
 import Chat from '../screens/Chat/Chat'
 import PrivateChat from '../screens/Chat/PrivateChat'
-
-export type ChatStackParams = {
-    Chat: undefined,
-    PrivateChat: undefined
-}
+import { ChatStackParams } from '../types/NavigationTypes'
 
 const ChatStackNavigation = () =>
 {

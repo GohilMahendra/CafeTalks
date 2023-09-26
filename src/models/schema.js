@@ -128,17 +128,10 @@ export const schema = {
                 "images": {
                     "name": "images",
                     "isArray": true,
-                    "type": "AWSURL",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
-                },
-                "short": {
-                    "name": "short",
-                    "isArray": false,
-                    "type": "AWSURL",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "type": {
                     "name": "type",
@@ -200,6 +193,13 @@ export const schema = {
                             "postID"
                         ]
                     }
+                },
+                "short": {
+                    "name": "short",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -293,7 +293,7 @@ export const schema = {
                 "profile_picture": {
                     "name": "profile_picture",
                     "isArray": false,
-                    "type": "AWSURL",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -343,6 +343,7 @@ export const schema = {
                         "rules": [
                             {
                                 "allow": "private",
+                                "provider": "iam",
                                 "operations": [
                                     "create",
                                     "update",
@@ -351,10 +352,7 @@ export const schema = {
                                 ]
                             },
                             {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "identityClaim": "cognito:username",
+                                "allow": "private",
                                 "operations": [
                                     "create",
                                     "update",
@@ -379,5 +377,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "f9437174e35c44d15f6ce7ab33b78245"
+    "version": "f28d80034d0661454770f2d92318a560"
 };

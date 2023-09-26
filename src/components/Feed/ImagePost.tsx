@@ -6,7 +6,12 @@ import Feather from 'react-native-vector-icons/Feather'
 import { GestureHandlerRootView, TapGestureHandler } from 'react-native-gesture-handler'
 import MaskedView from "@react-native-masked-view/masked-view";
 import LinearGradient from 'react-native-linear-gradient'
-const ImagePost = () =>
+import ImageSlider from './ImageSlider'
+import { FeedType } from '../../screens/Profile/Home'
+import { DummyImage } from '../../globals/data'
+
+
+const ImagePost = (props: Omit<FeedType,"video">) =>
 {
 
     const {theme} = useContext(ThemeContext)
@@ -14,7 +19,18 @@ const ImagePost = () =>
     const textColor = theme.colors.TextColor
     const doubleTapRef = useRef()
     const [liked ,setLiked] = useState<boolean>(false)
-
+    console.log(props.images)
+    const {
+        comments,
+        id,
+        images,
+        likes,
+        name,
+        profilePicture,
+        tags,
+        type,
+        userName
+    } = props
     const Description = `To all the people why we are here is not a quesiton of marl \n
     ites  The faith wich lead us yhye \n
     ites  The faith wich lead us yhye \n
@@ -26,6 +42,8 @@ const ImagePost = () =>
    
     let positionY = useRef(new Animated.Value(height/2 - 20))
     let positionX = useRef(new Animated.Value(width/2))
+
+    console
     const onDoubleTap = () =>
     {
         Vibration.vibrate()
@@ -77,7 +95,7 @@ const ImagePost = () =>
                     flexDirection:"row"
                 }}>
                 <Image
-                source={{uri:"https://www.filmibeat.com/wimgm/500x70/mobi/2019/10/prabhas_23.jpg"}}
+                source={profilePicture?{uri:profilePicture}:DummyImage}
                 style={{
                     height:50,
                     width:50,
@@ -153,15 +171,11 @@ const ImagePost = () =>
                         maxDelayMs={500}
                         onActivated={() => onDoubleTap()}
                     >
-                            <Image
-                            source={{uri:"https://www.filmibeat.com/wimgm/500x70/mobi/2019/10/prabhas_23.jpg"}}
-                            style={{
-                                flex:1,
-                                width:width,
-                                height:height*70/100,
-                                resizeMode:"cover"
-                            }}
-                            />
+                    <View>
+                    <ImageSlider
+                    images={images}
+                    />
+                    </View>
                     </TapGestureHandler>
                 </TapGestureHandler>
             </GestureHandlerRootView>
