@@ -41,17 +41,24 @@ const Home = () =>
             <View style={{
            
             }}>
-            <ImagePost
-            comments={item.comments}
-            id={item.id}
-            images={item.images}
-            likes={item.likes}
-            name={item.name}
-            profilePicture={item.profilePicture}
-            tags={item.tags}
-            userName={item.userName}
-            key={item.id}
-            />
+            {
+                item.images ?
+                <ImagePost
+                comments={item.comments}
+                id={item.id}
+                images={item.images}
+                likes={item.likes}
+                name={item.name}
+                profilePicture={item.profilePicture}
+                tags={item.tags}
+                userName={item.userName}
+                key={item.id}
+                />
+                :
+                <VideoPost
+                visible={index == visibleIndex}
+                />
+            }
             </View>
         )
     }

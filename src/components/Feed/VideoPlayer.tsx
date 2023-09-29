@@ -148,7 +148,7 @@ const VideoPlayer = () =>
                             <Image 
                             resizeMethod="resize"
                             resizeMode="cover"
-                            source={require("../../../assets/images/car.jpeg")}
+                            source={{uri:"https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974740819/jujutsu-kaisen-the-official-anime-guide-season-1-9781974740819_hr.jpg"}}
                             style={{
                                 resizeMode:"contain",
                                 borderRadius:50,
