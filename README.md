@@ -25,8 +25,8 @@ use
 
  <table>
         <tr>
+          <td><img src="screenshots/Screenshot_1696020590.png" alt="Image 2" width="200" height="500"></td>
             <td><img src="screenshots/Screenshot_1696020046.png" alt="Image 1" width="200" height="500"></td>
-            <td><img src="screenshots/Screenshot_1696020590.png" alt="Image 2" width="200" height="500"></td>
             <td><img src="screenshots/Screenshot_1696020596.png" alt="Image 3" width="200" height="500"></td>
         </tr>
         <tr>
