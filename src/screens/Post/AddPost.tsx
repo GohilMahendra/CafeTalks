@@ -6,12 +6,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import { StyleSheet } from 'react-native';
 import RNFS from 'react-native-fs'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackRoutesParams } from '../../navigation/RootNavigation';
 import Header from '../../components/global/Header';
 import { API, Auth, Storage, graphqlOperation ,} from 'aws-amplify';
 import uuid from 'react-native-uuid';
-import { CreatePostInput, MediaType } from "../../API";
+import { CreatePostInput } from "../../API";
 import { createPost } from '../../graphql/mutations';
+import { RootStackRoutesParams } from '../../types/NavigationTypes';
 const { width, height } = Dimensions.get("window")
 const AddPost = () =>
 {
@@ -64,14 +64,12 @@ const AddPost = () =>
             const input:CreatePostInput = 
             {
                 
-                content: caption,
-                likes: 0,
-                type:MediaType.IMAGES,
+                caption: caption,
+                like: 0,
                 images:imageResponses,
-                short:null,
+                video:null,
                 userID: UID,
-                tags:[],
-                comments:0
+                comments:0,
             }
 
         

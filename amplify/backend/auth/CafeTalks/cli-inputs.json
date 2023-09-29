@@ -2,8 +2,8 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "cafeta36200b21",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "cafetac4ead232",
     "userPoolName": "CafeTalks",
     "autoVerifiedAttributes": [
       "email"
@@ -33,9 +33,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "CafeTa36200b21_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "CafeTac4ead232_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "36200b21",
+    "sharedId": "c4ead232",
     "resourceName": "CafeTalks",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
@@ -46,6 +46,20 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": []
   }
 }

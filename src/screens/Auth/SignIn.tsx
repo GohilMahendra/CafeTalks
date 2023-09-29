@@ -2,12 +2,12 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useContext, useState } from 'react'
 import { Alert, TextInput, TouchableOpacity, View } from 'react-native'
-import { RootStackRoutesParams } from '../../navigation/RootNavigation'
 import { ThemeContext } from '../../globals/ThemeContext'
 import { StyleSheet } from 'react-native'
 import { Text } from 'react-native'
 import { Auth } from 'aws-amplify'
 import { colors } from '../../globals/theme'
+import { RootStackRoutesParams } from '../../types/NavigationTypes'
 
  const SignIn = () =>
  {

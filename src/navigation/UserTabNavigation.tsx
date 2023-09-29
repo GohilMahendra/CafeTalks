@@ -16,7 +16,7 @@ const UserTabNavigation = () =>
     const { theme } = useContext(ThemeContext) 
     return(
         <ProfileTab.Navigator
-        initialRouteName='Home'
+        initialRouteName='ProfileStack'
         screenOptions={({route})=>({
             tabBarHideOnKeyboard: true,
             tabBarStyle:{

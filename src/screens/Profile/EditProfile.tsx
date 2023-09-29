@@ -4,7 +4,6 @@ import { ThemeContext } from '../../globals/ThemeContext'
 import Header from '../../components/global/Header'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { ProfileStackParams } from '../../navigation/ProfileStackNavigation'
 import { Image } from 'react-native-elements'
 import { DummyImage } from '../../globals/data'
 import { colors } from '../../globals/theme'
@@ -14,6 +13,7 @@ import { Auth, Storage,API,graphqlOperation  } from "aws-amplify";
 import { updateUser } from '../../graphql/mutations'
 import { UpdateUserInput } from '../../API'
 import RNFS from "react-native-fs";
+import { ProfileStackParams } from '../../types/NavigationTypes'
 const EditProfile = () =>
 {
 
@@ -73,28 +73,26 @@ const EditProfile = () =>
             {
             const fileName ="Profile/"+UID + "/" +UID+".png"
             const file = await RNFS.readFile(ProfilePicture,"base64")
+            const blob = new Blob([file]); 
             const response = await Storage.put(fileName,file,{
-                contentType: 'image/png', 
-                level:"protected",
+                contentType:"image/png"
             })
     
             key = response.key
-            console.log(key)
         }
         catch(err)
         {
-            console.log(err,"error in code")
+            console.log(err)
         }
           
         }
-        const imagePath =await Storage.get(key)
-        console.log(imagePath)
+        
         try
         {
         const input:UpdateUserInput={
           id: UID,
-          bio:"random bio to Update",
-          profile_picture:"random string",
+          bio: bio,
+          profile_picture:key
         }
         const response = await API.graphql(graphqlOperation(updateUser,{
             input

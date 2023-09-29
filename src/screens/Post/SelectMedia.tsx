@@ -9,8 +9,8 @@ import Feather from "react-native-vector-icons/Feather";
 import { launchImageLibrary } from 'react-native-image-picker'
 import ImageCorousal from '../../components/post/ImageCarousal'
 import { useNavigation } from '@react-navigation/native'
-import { RootStackRoutesParams } from '../../navigation/RootNavigation'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackRoutesParams } from '../../types/NavigationTypes'
 const SelectMedia = () =>
 {
     const {theme} = useContext(ThemeContext)

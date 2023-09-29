@@ -33,7 +33,8 @@ const OtpVerification = () =>
             id:sub,
             name: fullName,
             profile_picture:"",
-            user_name:userName
+            user_name:userName,
+            bio: ""
         }
         try
         {

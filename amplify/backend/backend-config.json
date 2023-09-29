@@ -55,7 +55,7 @@
     }
   },
   "storage": {
-    "s3cafetalksstorage63496621": {
+    "s3cafetalksstorage89817b7e": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

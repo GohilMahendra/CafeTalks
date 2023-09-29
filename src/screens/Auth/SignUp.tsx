@@ -2,10 +2,10 @@ import React,{useState,useContext} from 'react'
 import { TouchableOpacity,View,TextInput,Text, StyleSheet, Alert} from 'react-native';
 import { Auth } from "aws-amplify";
 import { useNavigation } from '@react-navigation/native';
-import { RootStackRoutesParams } from '../../navigation/RootNavigation';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ThemeContext } from '../../globals/ThemeContext';
 import { colors } from '../../globals/theme';
+import { RootStackRoutesParams } from '../../types/NavigationTypes';
 
 export type FocusType = 
 {
@@ -46,7 +46,7 @@ const SignUp = () =>
         }
         catch(err:any)
         {
-            Alert.alert("oops",JSON.stringify(err.log))
+            Alert.alert("oops",JSON.stringify(err))
         }
     }
 

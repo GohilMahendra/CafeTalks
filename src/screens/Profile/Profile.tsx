@@ -7,14 +7,13 @@ import { StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { Auth, API, graphqlOperation} from 'aws-amplify'
+import { Auth, API, graphqlOperation, Storage} from 'aws-amplify'
 import { getUser } from "../../graphql/queries"
 import { GetUserQuery } from '../../API'
 import { GraphQLResult } from '@aws-amplify/api-graphql'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { UserTabNavigationParams } from '../../navigation/UserTabNavigation'
-import { ProfileStackParams } from '../../navigation/ProfileStackNavigation'
+import { ProfileStackParams } from '../../types/NavigationTypes'
 
 export type User = 
 {
@@ -46,10 +45,11 @@ const Profile = () =>
         const user_id = currentUser.attributes.sub
         
         const user: GraphQLResult<any> = (await API.graphql(graphqlOperation(getUser,{id:user_id})))
-      
+        const imagePath = await Storage.get(user.data.getUser.profile_picture)
+        console.log(imagePath)
         setUser({
             bio: user.data?.getUser?.bio,
-            image: user.data.getUser.profile_picture,
+            image:imagePath,
             name: user.data.getUser.name,
             user_name:  user.data.getUser.user_name,
             email: user.data.getUser.email,
@@ -80,6 +80,7 @@ const Profile = () =>
                 
                     <View style={styles.infoRowContainer}>
                         <Image
+                        resizeMode='contain'
                         source={(user.image)?{uri: user.image}:DummyImage}
                         style={styles.imgProfile}
                         />
@@ -240,6 +241,7 @@ const styles = StyleSheet.create({
     {
         height:70,
         width:70,
+        backgroundColor:"#fff",
         borderRadius:70
     }
 

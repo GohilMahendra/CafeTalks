@@ -3,9 +3,9 @@ import { TouchableOpacity,View,TextInput,Dimensions,Text, Alert} from 'react-nat
 import { Auth } from "aws-amplify";
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackRoutesParams } from '../../navigation/RootNavigation';
 import { ThemeContext } from '../../globals/ThemeContext';
 import { StyleSheet } from 'react-native';
+import { RootStackRoutesParams } from '../../types/NavigationTypes';
 
 const ResetPassword = () =>
 {

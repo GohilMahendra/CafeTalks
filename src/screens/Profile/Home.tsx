@@ -6,8 +6,7 @@ import ImagePost from '../../components/Feed/ImagePost'
 import VideoPlayer from '../../components/Feed/VideoPlayer'
 import { API, Auth, Storage, graphqlOperation } from 'aws-amplify'
 import { SafeAreaView } from 'react-native'
-import { listPosts } from '../../graphql/queries'
-import {  ListPostsQuery, MediaType } from '../../API'
+
 
 export type FeedType = 
 {
@@ -15,7 +14,6 @@ export type FeedType =
     comments: number,
     likes: number,
     tags: string[],
-    type: MediaType,
     images: string[],
     video: string | null,
     userName: string,
@@ -44,7 +42,6 @@ const Home = () =>
             name={item.name}
             profilePicture={item.profilePicture}
             tags={item.tags}
-            type={item.type}
             userName={item.userName}
             key={item.id}
             />

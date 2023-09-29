@@ -1,30 +1,28 @@
-type Comment @model @auth(rules: [{allow: public}]) {
+type Comments @model @auth(rules: [{allow: public}]) {
   id: ID!
-  content: String!
-  postID: ID! @index(name: "byPost")
-  Post: Post @belongsTo(fields: ["postID"])
-  userID: ID! @index(name: "byUser")
-  User: User @belongsTo(fields: ["userID"])
+  content: String
+  Posts: [Post] @manyToMany(relationName: "CommentsPost")
+  Users: [User] @manyToMany(relationName: "CommentsUser")
 }
 
 type Post @model @auth(rules: [{allow: public}]) {
   id: ID!
-  images: [String]!
-  video: String
-  like: Int!
-  comments: Int!
+  images: [String]
+  short: String
+  likes: Int
+  comments: Int
   caption: String
-  userID: ID! @index(name: "byUser")
-  User: User @belongsTo(fields: ["userID"])
-  Comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+  tags: [String]
+  commentss: [Comments] @manyToMany(relationName: "CommentsPost")
 }
 
 type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   user_name: String!
+  profile_picture: String!
   email: String!
-  profile_picture: String
-  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
-  Comments: [Comment] @hasMany(indexName: "byUser", fields: ["id"])
+  bio: String
+  commentss: [Comments] @manyToMany(relationName: "CommentsUser")
 }
+ 
