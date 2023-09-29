@@ -23,11 +23,15 @@ use
     
 ## Screenshots
 
-![App Screenshot](screenshots/Screenshot_1696020046.png)
-![App Screenshot](screenshots/Screenshot_1696020590.png)
-![App Screenshot](screenshots/Screenshot_1696020596.png)
-![App Screenshot](screenshots/Screenshot_1696020721.png)
-![App Screenshot](screenshots/Screenshot_1696020726.png)
+ <table>
+        <tr>
+            <td><img src="screenshots/Screenshot_1696020046.png" alt="Image 1" width="200" height="500"></td>
+            <td><img src="screenshots/Screenshot_1696020590.png" alt="Image 2" width="200" height="500"></td>
+            <td><img src="screenshots/Screenshot_1696020596.png" alt="Image 3" width="200" height="500"></td>
+            <td><img src="screenshots/Screenshot_1696020721.png" alt="Image 4" width="200" height="500"></td>
+            <td><img src="screenshots/Screenshot_1696020726.png" alt="Image 5" width="200" height="500"></td>
+        </tr>
+    </table>
 
 
 ## Running Tests
