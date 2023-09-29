@@ -60,7 +60,6 @@ const EditProfile = () =>
 
     const updateProfile = async() =>
     {
-        console.log("changes have done !!")
         if(!havechanges())
         return
 

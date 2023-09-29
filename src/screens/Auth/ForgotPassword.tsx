@@ -6,8 +6,8 @@ import { TextInput } from 'react-native'
 import { Auth } from 'aws-amplify'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackRoutesParams } from '../../navigation/RootNavigation'
 import Header from '../../components/global/Header'
+import { RootStackRoutesParams } from '../../types/NavigationTypes'
 
 const ForgotPassword = () =>
 {

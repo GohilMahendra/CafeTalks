@@ -1,11 +1,12 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { View,Modal, Text, FlatList,TouchableWithoutFeedback, useWindowDimensions } from 'react-native'
+import { View,Modal,TouchableOpacity, Text, FlatList,TouchableWithoutFeedback,Image, useWindowDimensions } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import VideoPost from '../../components/Feed/VideoPost'
 import ImagePost from '../../components/Feed/ImagePost'
 import VideoPlayer from '../../components/Feed/VideoPlayer'
 import { API, Auth, Storage, graphqlOperation } from 'aws-amplify'
 import { SafeAreaView } from 'react-native'
+import { listPosts } from '../../graphql/queries'
 
 
 export type FeedType = 
@@ -26,7 +27,13 @@ const Home = () =>
     const [visibleIndex, setVisibleIndex] = useState<number | null>(null)
     const {height,width} = useWindowDimensions()
     const [showComments,setShowComments] = useState(false)
+    const [Stories,SetStories] = useState<string[]>([
+        "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974722846/jujutsu-kaisen-vol-11-9781974722846_hr.jpg",
+        "https://www.animenewsnetwork.com/hotlink/images/encyc/A25346-1023635631.1690326071.jpg",
+        "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974740819/jujutsu-kaisen-the-official-anime-guide-season-1-9781974740819_hr.jpg",
+        "https://e0.pxfuel.com/wallpapers/1007/142/desktop-wallpaper-kakashi-hatake.jpg",
 
+    ])
     const {theme} = useContext(ThemeContext)
     const cellRefs = useRef<any>({})
     const renderFeedComponent = ({item,index}:{item:FeedType,index:number})=>{
@@ -107,13 +114,56 @@ const Home = () =>
        
 
     useEffect(()=>{
-        getPosts()
+        setFeedPosts([{
+            comments:0,
+            id:"string",
+            images:["https://e0.pxfuel.com/wallpapers/1007/142/desktop-wallpaper-kakashi-hatake.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkWhKpqFySrL91rUKf5cdQvWjSbSIRQi736A&usqp=CAU"],
+            likes:0,
+            name:"go jo sotaru",
+            profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkWhKpqFySrL91rUKf5cdQvWjSbSIRQi736A&usqp=CAU",
+            tags:["gojo"],
+            userName:"gojo_jujutsu",
+            video:null
+        }])
+    
+        //getPosts()
     },[])
     return(
         <SafeAreaView style={{
             flex:1,
             backgroundColor:theme.colors.ColorBackground
         }}>
+            <View style={{
+                flexDirection:"row",
+                padding:20,
+            }}>
+                {
+                    Stories.map(
+                        (image:string)=>(
+                            <TouchableOpacity
+                            key={image}
+                            >
+                                <Image
+                                source={{
+                                    uri:image
+                                }}
+                                
+                                style={{
+                                    height:70,
+                                    width:70,
+                                    marginRight:10,
+                                    borderRadius:70,
+                                    borderWidth:1,
+                                    borderColor: theme.colors.ColorPrimary
+                                }}
+                                />
+                        </TouchableOpacity>
+                        )
+                    )
+                }
+
+            </View>
             <FlatList
             
             style={{

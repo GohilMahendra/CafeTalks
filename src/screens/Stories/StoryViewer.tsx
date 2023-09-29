@@ -6,14 +6,14 @@ const StoryViewer = () =>
 {
     const [storyArr,setStoryArr]=useState([{
         id:0,
-        url:"https://cdn.mos.cms.futurecdn.net/RdKH8RSk8gEpTg6eTtE2gQ.jpg",
+        url:"https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974740819/jujutsu-kaisen-the-official-anime-guide-season-1-9781974740819_hr.jpg",
         type:"image",
         duration:10,
         viewed:false
         },
         {
         id:1,
-        url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwj2o6-BiSjoH7THyZn799K5tvK7ivd9bxxA&usqp=CAU",
+        url:"https://www.animenewsnetwork.com/hotlink/images/encyc/A25346-1023635631.1690326071.jpg",
         type:"image",
         duration:10,
         viewed:false
@@ -114,11 +114,13 @@ const StoryViewer = () =>
                     style={{
                         width:widthBar,
                         height:5,
+                        borderRadius:5,
                         backgroundColor:"silver"
                     }}>
                         <Animated.View
                         style={{
                             position:"absolute",
+                            borderRadius:5,
                             backgroundColor:"#fff",
                             width:(currentIndex == index) ? progress : 0,
                             height:5

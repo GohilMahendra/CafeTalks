@@ -28,7 +28,6 @@ const ImagePost = (props: Omit<FeedType,"video">) =>
         name,
         profilePicture,
         tags,
-        type,
         userName
     } = props
     const Description = `To all the people why we are here is not a quesiton of marl \n
@@ -111,7 +110,7 @@ const ImagePost = (props: Omit<FeedType,"video">) =>
                     marginRight:10,
                     fontWeight:"700"
                      }}>
-                    example_userName
+                   {name}
                       </Text>
                       <Text style={{
                     color:theme.colors.PlaceHolderColor,
@@ -119,7 +118,7 @@ const ImagePost = (props: Omit<FeedType,"video">) =>
                     marginRight:10,
                     fontWeight:"700"
                      }}>
-                    example_userName
+                   {userName}
                       </Text>
                 </View>
                 </View>
