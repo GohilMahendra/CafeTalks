@@ -23,7 +23,7 @@ const RootNavigation = () =>
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName = "StoryViewer">
+            initialRouteName = "SplashScreen">
                 <rootStack.Screen
                 name='SignIn'
                 component={SignIn}
