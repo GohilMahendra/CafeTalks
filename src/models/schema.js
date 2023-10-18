@@ -14,7 +14,7 @@ export const schema = {
                     "name": "content",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "postID": {
@@ -23,24 +23,6 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
-                },
-                "User": {
-                    "name": "User",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": [
-                            "id"
-                        ],
-                        "targetNames": [
-                            "commentsUserId"
-                        ]
-                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -57,13 +39,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "commentsUserId": {
-                    "name": "commentsUserId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -110,21 +85,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "content": {
-                    "name": "content",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "tags": {
-                    "name": "tags",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
                 "images": {
                     "name": "images",
                     "isArray": true,
@@ -133,13 +93,25 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "type": {
-                    "name": "type",
+                "video": {
+                    "name": "video",
                     "isArray": false,
-                    "type": {
-                        "enum": "MediaType"
-                    },
-                    "isRequired": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "caption": {
+                    "name": "caption",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "likes": {
@@ -163,23 +135,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "User": {
-                    "name": "User",
-                    "isArray": false,
-                    "type": {
-                        "model": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "userID"
-                        ]
-                    }
-                },
-                "Comments": {
-                    "name": "Comments",
+                "PostComments": {
+                    "name": "PostComments",
                     "isArray": true,
                     "type": {
                         "model": "Comments"
@@ -194,12 +151,20 @@ export const schema = {
                         ]
                     }
                 },
-                "short": {
-                    "name": "short",
+                "User": {
+                    "name": "User",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "model": "User"
+                    },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetNames": [
+                            "userID"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -266,11 +231,25 @@ export const schema = {
                     "name": "name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "user_name": {
                     "name": "user_name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "profile_picture": {
+                    "name": "profile_picture",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -278,20 +257,6 @@ export const schema = {
                 },
                 "bio": {
                     "name": "bio",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "email": {
-                    "name": "email",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "profile_picture": {
-                    "name": "profile_picture",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -343,7 +308,6 @@ export const schema = {
                         "rules": [
                             {
                                 "allow": "private",
-                                "provider": "iam",
                                 "operations": [
                                     "create",
                                     "update",
@@ -352,7 +316,10 @@ export const schema = {
                                 ]
                             },
                             {
-                                "allow": "private",
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
                                 "operations": [
                                     "create",
                                     "update",
@@ -366,16 +333,8 @@ export const schema = {
             ]
         }
     },
-    "enums": {
-        "MediaType": {
-            "name": "MediaType",
-            "values": [
-                "VIDEO",
-                "IMAGES"
-            ]
-        }
-    },
+    "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "f28d80034d0661454770f2d92318a560"
+    "version": "492add7023e34e9518ac534c18eb3d61"
 };

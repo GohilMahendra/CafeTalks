@@ -12,16 +12,12 @@ export const onCreateComments = /* GraphQL */ `subscription OnCreateComments($fi
   onCreateComments(filter: $filter) {
     id
     content
-    Posts {
-      nextToken
-      __typename
-    }
-    Users {
-      nextToken
-      __typename
-    }
+    postID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -33,16 +29,12 @@ export const onUpdateComments = /* GraphQL */ `subscription OnUpdateComments($fi
   onUpdateComments(filter: $filter) {
     id
     content
-    Posts {
-      nextToken
-      __typename
-    }
-    Users {
-      nextToken
-      __typename
-    }
+    postID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -54,16 +46,12 @@ export const onDeleteComments = /* GraphQL */ `subscription OnDeleteComments($fi
   onDeleteComments(filter: $filter) {
     id
     content
-    Posts {
-      nextToken
-      __typename
-    }
-    Users {
-      nextToken
-      __typename
-    }
+    postID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -75,17 +63,37 @@ export const onCreatePost = /* GraphQL */ `subscription OnCreatePost($filter: Mo
   onCreatePost(filter: $filter) {
     id
     images
-    short
+    video
+    tags
+    caption
     likes
     comments
-    caption
-    tags
-    commentss {
+    userID
+    PostComments {
       nextToken
+      startedAt
+      __typename
+    }
+    User {
+      id
+      name
+      email
+      user_name
+      profile_picture
+      bio
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -97,17 +105,37 @@ export const onUpdatePost = /* GraphQL */ `subscription OnUpdatePost($filter: Mo
   onUpdatePost(filter: $filter) {
     id
     images
-    short
+    video
+    tags
+    caption
     likes
     comments
-    caption
-    tags
-    commentss {
+    userID
+    PostComments {
       nextToken
+      startedAt
+      __typename
+    }
+    User {
+      id
+      name
+      email
+      user_name
+      profile_picture
+      bio
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -119,17 +147,37 @@ export const onDeletePost = /* GraphQL */ `subscription OnDeletePost($filter: Mo
   onDeletePost(filter: $filter) {
     id
     images
-    short
+    video
+    tags
+    caption
     likes
     comments
-    caption
-    tags
-    commentss {
+    userID
+    PostComments {
       nextToken
+      startedAt
+      __typename
+    }
+    User {
+      id
+      name
+      email
+      user_name
+      profile_picture
+      bio
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -137,20 +185,28 @@ export const onDeletePost = /* GraphQL */ `subscription OnDeletePost($filter: Mo
   APITypes.OnDeletePostSubscriptionVariables,
   APITypes.OnDeletePostSubscription
 >;
-export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-  onCreateUser(filter: $filter) {
+export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $owner: String
+) {
+  onCreateUser(filter: $filter, owner: $owner) {
     id
     name
+    email
     user_name
     profile_picture
-    email
     bio
-    commentss {
+    Posts {
       nextToken
+      startedAt
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
     __typename
   }
 }
@@ -158,20 +214,28 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
   APITypes.OnCreateUserSubscriptionVariables,
   APITypes.OnCreateUserSubscription
 >;
-export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-  onUpdateUser(filter: $filter) {
+export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $owner: String
+) {
+  onUpdateUser(filter: $filter, owner: $owner) {
     id
     name
+    email
     user_name
     profile_picture
-    email
     bio
-    commentss {
+    Posts {
       nextToken
+      startedAt
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
     __typename
   }
 }
@@ -179,231 +243,32 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
   APITypes.OnUpdateUserSubscriptionVariables,
   APITypes.OnUpdateUserSubscription
 >;
-export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-  onDeleteUser(filter: $filter) {
+export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $owner: String
+) {
+  onDeleteUser(filter: $filter, owner: $owner) {
     id
     name
+    email
     user_name
     profile_picture
-    email
     bio
-    commentss {
+    Posts {
       nextToken
+      startedAt
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
   APITypes.OnDeleteUserSubscriptionVariables,
   APITypes.OnDeleteUserSubscription
->;
-export const onCreateCommentsPost = /* GraphQL */ `subscription OnCreateCommentsPost(
-  $filter: ModelSubscriptionCommentsPostFilterInput
-) {
-  onCreateCommentsPost(filter: $filter) {
-    id
-    commentsId
-    postId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    post {
-      id
-      images
-      short
-      likes
-      comments
-      caption
-      tags
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateCommentsPostSubscriptionVariables,
-  APITypes.OnCreateCommentsPostSubscription
->;
-export const onUpdateCommentsPost = /* GraphQL */ `subscription OnUpdateCommentsPost(
-  $filter: ModelSubscriptionCommentsPostFilterInput
-) {
-  onUpdateCommentsPost(filter: $filter) {
-    id
-    commentsId
-    postId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    post {
-      id
-      images
-      short
-      likes
-      comments
-      caption
-      tags
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateCommentsPostSubscriptionVariables,
-  APITypes.OnUpdateCommentsPostSubscription
->;
-export const onDeleteCommentsPost = /* GraphQL */ `subscription OnDeleteCommentsPost(
-  $filter: ModelSubscriptionCommentsPostFilterInput
-) {
-  onDeleteCommentsPost(filter: $filter) {
-    id
-    commentsId
-    postId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    post {
-      id
-      images
-      short
-      likes
-      comments
-      caption
-      tags
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteCommentsPostSubscriptionVariables,
-  APITypes.OnDeleteCommentsPostSubscription
->;
-export const onCreateCommentsUser = /* GraphQL */ `subscription OnCreateCommentsUser(
-  $filter: ModelSubscriptionCommentsUserFilterInput
-) {
-  onCreateCommentsUser(filter: $filter) {
-    id
-    commentsId
-    userId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    user {
-      id
-      name
-      user_name
-      profile_picture
-      email
-      bio
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateCommentsUserSubscriptionVariables,
-  APITypes.OnCreateCommentsUserSubscription
->;
-export const onUpdateCommentsUser = /* GraphQL */ `subscription OnUpdateCommentsUser(
-  $filter: ModelSubscriptionCommentsUserFilterInput
-) {
-  onUpdateCommentsUser(filter: $filter) {
-    id
-    commentsId
-    userId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    user {
-      id
-      name
-      user_name
-      profile_picture
-      email
-      bio
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateCommentsUserSubscriptionVariables,
-  APITypes.OnUpdateCommentsUserSubscription
->;
-export const onDeleteCommentsUser = /* GraphQL */ `subscription OnDeleteCommentsUser(
-  $filter: ModelSubscriptionCommentsUserFilterInput
-) {
-  onDeleteCommentsUser(filter: $filter) {
-    id
-    commentsId
-    userId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    user {
-      id
-      name
-      user_name
-      profile_picture
-      email
-      bio
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteCommentsUserSubscriptionVariables,
-  APITypes.OnDeleteCommentsUserSubscription
 >;

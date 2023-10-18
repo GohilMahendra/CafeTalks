@@ -1,3 +1,5 @@
+import { mediaSelected } from "./Post/UploadTypes"
+
 export type RootStackRoutesParams = {
     SignIn:undefined,
     SignUp:undefined,
@@ -14,8 +16,8 @@ export type RootStackRoutesParams = {
     }
     UserTab: undefined,
     AddPost: {
-        images: string[],
-        video: string | null
+        images: mediaSelected[],
+        video: mediaSelected | null
     },
     SplashScreen:undefined,
     StoryViewer: undefined,

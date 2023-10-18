@@ -37,12 +37,13 @@ const Home = () =>
     const {theme} = useContext(ThemeContext)
     const cellRefs = useRef<any>({})
     const renderFeedComponent = ({item,index}:{item:FeedType,index:number})=>{
+        console.log(item)
         return(
             <View style={{
            
             }}>
             {
-                item.images ?
+                item.images.length > 0 ?
                 <ImagePost
                 comments={item.comments}
                 id={item.id}
@@ -55,9 +56,7 @@ const Home = () =>
                 key={item.id}
                 />
                 :
-                <VideoPost
-                visible={index == visibleIndex}
-                />
+             null
             }
             </View>
         )
@@ -78,6 +77,8 @@ const Home = () =>
     
     const getPosts = async() =>
     {
+        try
+        {
         const current_user  = await Auth.currentAuthenticatedUser({
             bypassCache: true
            })
@@ -87,54 +88,46 @@ const Home = () =>
             graphqlOperation(listPosts)
           );
         let Feed: FeedType[] = []
+        console.log(JSON.stringify(response))
           if(response.data?.listPosts?.items)
           {
 
             console.log(response.data?.listPosts?.items)
-            try
-            {
+            
              response.data.listPosts.items.forEach(async(data:any)=>{
-                const profile = await Storage.get(data?.User?.profile_picture)
+             //   const profile = await Storage.get(data?.User?.profile_picture)
+             let imageArr: string[] = [];
+
+             for (const image of data.images) {
+               const imageUrl = await Storage.get(image);
+               console.log(imageUrl, "getting this image");
+               imageArr.push(imageUrl);
+             }
                 Feed.push({
                     comments: data.comments || 0,
                     id: data.id,
-                    images: data.images,
+                    images: imageArr ,
                     likes: data.likes,
-                    name: data.User.name,
-                    profilePicture:profile,
-                    tags:data.tags,
-                    userName: data.User?.user_name,
-                    type: data.type,
-                    video: data.short
+                    name:"ds",
+                    profilePicture:"",
+                    tags:data.tags || [],
+                    userName:"dsd",
+                    video: data.video
                 })
              })
-            }
+          }
+          setFeedPosts(Feed)
+          console.log(Feed)
+        }
             catch(err)
             {
                 console.log(err)
             }
-          }
-        
-          setFeedPosts(Feed)
-          console.log(Feed)
     }
        
 
     useEffect(()=>{
-        setFeedPosts([{
-            comments:0,
-            id:"string",
-            images:["https://e0.pxfuel.com/wallpapers/1007/142/desktop-wallpaper-kakashi-hatake.jpg",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkWhKpqFySrL91rUKf5cdQvWjSbSIRQi736A&usqp=CAU"],
-            likes:0,
-            name:"go jo sotaru",
-            profilePicture:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkWhKpqFySrL91rUKf5cdQvWjSbSIRQi736A&usqp=CAU",
-            tags:["gojo"],
-            userName:"gojo_jujutsu",
-            video:null
-        }])
-    
-        //getPosts()
+        getPosts()
     },[])
     return(
         <SafeAreaView style={{
@@ -179,8 +172,8 @@ const Home = () =>
             data={feedPosts}
             renderItem={({item,index})=>renderFeedComponent({item,index})}
             keyExtractor={(item)=>(item.id.toString())}
-            onViewableItemsChanged={handleViewableItemsChanged}
-            viewabilityConfig={viewConfigRef.current}
+           // onViewableItemsChanged={handleViewableItemsChanged}
+           // viewabilityConfig={viewConfigRef.current}
             snapToInterval={height-200}
             />
             

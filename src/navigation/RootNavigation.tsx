@@ -23,7 +23,7 @@ const RootNavigation = () =>
             screenOptions={{
                 headerShown: false
             }}
-            initialRouteName = "SplashScreen">
+            initialRouteName = "SelectMedia">
                 <rootStack.Screen
                 name='SignIn'
                 component={SignIn}

@@ -32,9 +32,7 @@ const OtpVerification = () =>
             email:email,
             id:sub,
             name: fullName,
-            profile_picture:"",
-            user_name:userName,
-            bio: ""
+            user_name:userName
         }
         try
         {

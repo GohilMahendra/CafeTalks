@@ -1,7 +1,15 @@
 {
   "api": {
-    "CafeTalks": {
-      "dependsOn": [],
+    "cafetalks": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "Cafetalks"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
@@ -10,11 +18,10 @@
             }
           ],
           "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "api key description"
-            },
-            "authenticationType": "API_KEY"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authCafetalks"
+            }
           }
         }
       },
@@ -23,7 +30,7 @@
     }
   },
   "auth": {
-    "CafeTalks": {
+    "Cafetalks": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -42,7 +49,7 @@
         },
         "signupAttributes": [
           "EMAIL",
-          "PREFERRED_USERNAME"
+          "NAME"
         ],
         "socialProviders": [],
         "usernameAttributes": [],
@@ -55,7 +62,7 @@
     }
   },
   "storage": {
-    "s3cafetalksstorage89817b7e": {
+    "s3cafetalksstorage54d87f63": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

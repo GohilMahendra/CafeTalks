@@ -68,6 +68,7 @@ const EditProfile = () =>
         let key: string = ""
         if(user_image != ProfilePicture && ProfilePicture)
         {
+            console.log("image got updated with new key")
             try
             {
             const fileName ="Profile/"+UID + "/" +UID+".png"
@@ -86,17 +87,19 @@ const EditProfile = () =>
           
         }
         
-        try
+    try
+    {
+        const input:UpdateUserInput = 
         {
-        const input:UpdateUserInput={
-          id: UID,
-          bio: bio,
-          profile_picture:key
+            id: UID,
+            bio:"fake bio",
+            profile_picture: key
         }
-        const response = await API.graphql(graphqlOperation(updateUser,{
+        const respose = await API.graphql(graphqlOperation(updateUser,{
             input
         }))
-        console.log(JSON.stringify(response))
+        console.log(JSON.stringify(respose))
+    
     }
     catch(err)
     {

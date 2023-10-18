@@ -11,12 +11,14 @@ import ImageCorousal from '../../components/post/ImageCarousal'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackRoutesParams } from '../../types/NavigationTypes'
+import { mediaSelected } from '../../types/Post/UploadTypes'
+
 const SelectMedia = () =>
 {
     const {theme} = useContext(ThemeContext)
     const {height,width} = useWindowDimensions()
-    const [images,setImages] = useState<string[]>([])
-    const [video,setVideo] = useState<null|string>()
+    const [images,setImages] = useState<mediaSelected[]>([])
+    const [video,setVideo] = useState<mediaSelected | null>(null)
     const [mediaModal,setMediaModal] = useState<boolean>(false)
     const navigation = useNavigation<NativeStackNavigationProp<RootStackRoutesParams,"SelectMedia">>()
     const openImagePicker = async() =>
@@ -30,9 +32,19 @@ const SelectMedia = () =>
 
         if(!response.didCancel)
         {
-            let images:string[] = []
+            let images:mediaSelected[] = []
             response.assets?.forEach((image)=>{
-                const singleImage:string = image.uri || ""
+                console.log(image)
+                const imageUri:string = image.uri || ""
+                const imagename = image.fileName
+                const imageType = image.type
+
+                const singleImage:mediaSelected=
+                {
+                    name: imagename||"",
+                    path:imageUri,
+                    type:imageType||""
+                }
                 images.push(singleImage)
             })
             setImages(images)
@@ -111,7 +123,7 @@ const SelectMedia = () =>
         {
           (images.length > 0 && !video) &&
           <ImageCorousal
-          images={images}
+          images={images.map(image=>image.path)}
           />
         }
             <TouchableOpacity

@@ -15,16 +15,12 @@ export const createComments = /* GraphQL */ `mutation CreateComments(
   createComments(input: $input, condition: $condition) {
     id
     content
-    Posts {
-      nextToken
-      __typename
-    }
-    Users {
-      nextToken
-      __typename
-    }
+    postID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -39,16 +35,12 @@ export const updateComments = /* GraphQL */ `mutation UpdateComments(
   updateComments(input: $input, condition: $condition) {
     id
     content
-    Posts {
-      nextToken
-      __typename
-    }
-    Users {
-      nextToken
-      __typename
-    }
+    postID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -63,16 +55,12 @@ export const deleteComments = /* GraphQL */ `mutation DeleteComments(
   deleteComments(input: $input, condition: $condition) {
     id
     content
-    Posts {
-      nextToken
-      __typename
-    }
-    Users {
-      nextToken
-      __typename
-    }
+    postID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -87,17 +75,37 @@ export const createPost = /* GraphQL */ `mutation CreatePost(
   createPost(input: $input, condition: $condition) {
     id
     images
-    short
+    video
+    tags
+    caption
     likes
     comments
-    caption
-    tags
-    commentss {
+    userID
+    PostComments {
       nextToken
+      startedAt
+      __typename
+    }
+    User {
+      id
+      name
+      email
+      user_name
+      profile_picture
+      bio
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -112,17 +120,37 @@ export const updatePost = /* GraphQL */ `mutation UpdatePost(
   updatePost(input: $input, condition: $condition) {
     id
     images
-    short
+    video
+    tags
+    caption
     likes
     comments
-    caption
-    tags
-    commentss {
+    userID
+    PostComments {
       nextToken
+      startedAt
+      __typename
+    }
+    User {
+      id
+      name
+      email
+      user_name
+      profile_picture
+      bio
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -137,17 +165,37 @@ export const deletePost = /* GraphQL */ `mutation DeletePost(
   deletePost(input: $input, condition: $condition) {
     id
     images
-    short
+    video
+    tags
+    caption
     likes
     comments
-    caption
-    tags
-    commentss {
+    userID
+    PostComments {
       nextToken
+      startedAt
+      __typename
+    }
+    User {
+      id
+      name
+      email
+      user_name
+      profile_picture
+      bio
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -162,16 +210,21 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   createUser(input: $input, condition: $condition) {
     id
     name
+    email
     user_name
     profile_picture
-    email
     bio
-    commentss {
+    Posts {
       nextToken
+      startedAt
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
     __typename
   }
 }
@@ -186,16 +239,21 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
   updateUser(input: $input, condition: $condition) {
     id
     name
+    email
     user_name
     profile_picture
-    email
     bio
-    commentss {
+    Posts {
       nextToken
+      startedAt
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
     __typename
   }
 }
@@ -210,233 +268,25 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   deleteUser(input: $input, condition: $condition) {
     id
     name
+    email
     user_name
     profile_picture
-    email
     bio
-    commentss {
+    Posts {
       nextToken
+      startedAt
       __typename
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    owner
     __typename
   }
 }
 ` as GeneratedMutation<
   APITypes.DeleteUserMutationVariables,
   APITypes.DeleteUserMutation
->;
-export const createCommentsPost = /* GraphQL */ `mutation CreateCommentsPost(
-  $input: CreateCommentsPostInput!
-  $condition: ModelCommentsPostConditionInput
-) {
-  createCommentsPost(input: $input, condition: $condition) {
-    id
-    commentsId
-    postId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    post {
-      id
-      images
-      short
-      likes
-      comments
-      caption
-      tags
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateCommentsPostMutationVariables,
-  APITypes.CreateCommentsPostMutation
->;
-export const updateCommentsPost = /* GraphQL */ `mutation UpdateCommentsPost(
-  $input: UpdateCommentsPostInput!
-  $condition: ModelCommentsPostConditionInput
-) {
-  updateCommentsPost(input: $input, condition: $condition) {
-    id
-    commentsId
-    postId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    post {
-      id
-      images
-      short
-      likes
-      comments
-      caption
-      tags
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateCommentsPostMutationVariables,
-  APITypes.UpdateCommentsPostMutation
->;
-export const deleteCommentsPost = /* GraphQL */ `mutation DeleteCommentsPost(
-  $input: DeleteCommentsPostInput!
-  $condition: ModelCommentsPostConditionInput
-) {
-  deleteCommentsPost(input: $input, condition: $condition) {
-    id
-    commentsId
-    postId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    post {
-      id
-      images
-      short
-      likes
-      comments
-      caption
-      tags
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteCommentsPostMutationVariables,
-  APITypes.DeleteCommentsPostMutation
->;
-export const createCommentsUser = /* GraphQL */ `mutation CreateCommentsUser(
-  $input: CreateCommentsUserInput!
-  $condition: ModelCommentsUserConditionInput
-) {
-  createCommentsUser(input: $input, condition: $condition) {
-    id
-    commentsId
-    userId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    user {
-      id
-      name
-      user_name
-      profile_picture
-      email
-      bio
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateCommentsUserMutationVariables,
-  APITypes.CreateCommentsUserMutation
->;
-export const updateCommentsUser = /* GraphQL */ `mutation UpdateCommentsUser(
-  $input: UpdateCommentsUserInput!
-  $condition: ModelCommentsUserConditionInput
-) {
-  updateCommentsUser(input: $input, condition: $condition) {
-    id
-    commentsId
-    userId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    user {
-      id
-      name
-      user_name
-      profile_picture
-      email
-      bio
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateCommentsUserMutationVariables,
-  APITypes.UpdateCommentsUserMutation
->;
-export const deleteCommentsUser = /* GraphQL */ `mutation DeleteCommentsUser(
-  $input: DeleteCommentsUserInput!
-  $condition: ModelCommentsUserConditionInput
-) {
-  deleteCommentsUser(input: $input, condition: $condition) {
-    id
-    commentsId
-    userId
-    comments {
-      id
-      content
-      createdAt
-      updatedAt
-      __typename
-    }
-    user {
-      id
-      name
-      user_name
-      profile_picture
-      email
-      bio
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteCommentsUserMutationVariables,
-  APITypes.DeleteCommentsUserMutation
 >;

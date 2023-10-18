@@ -29,8 +29,8 @@ const SignUp = () =>
                 username:userName,
                 password:password,
                 attributes:{
-                    email:email,
-                    preferred_username: userName
+                    email: email,
+                    name: fullName
                 }
             })
            

@@ -2,9 +2,9 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "cafetac4ead232",
-    "userPoolName": "CafeTalks",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "cafetac268bd7f",
+    "userPoolName": "Cafetalks",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -26,17 +26,17 @@
     ],
     "requiredAttributes": [
       "email",
-      "preferred_username"
+      "name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "CafeTac4ead232_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "Cafetac268bd7f_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "c4ead232",
-    "resourceName": "CafeTalks",
+    "sharedId": "c268bd7f",
+    "resourceName": "Cafetalks",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
     "useDefault": "manual",
@@ -60,6 +60,7 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [],
+    "hostedUI": false
   }
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { View,Text,Vibration,Image,TouchableOpacity, useWindowDimensions, Animated } from 'react-native'
 import { ThemeContext } from '../../globals/ThemeContext'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
@@ -9,11 +9,14 @@ import LinearGradient from 'react-native-linear-gradient'
 import ImageSlider from './ImageSlider'
 import { FeedType } from '../../screens/Profile/Home'
 import { DummyImage } from '../../globals/data'
+import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands'
+import { Storage } from 'aws-amplify'
 
 
 const ImagePost = (props: Omit<FeedType,"video">) =>
 {
 
+    console.log(props)
     const {theme} = useContext(ThemeContext)
     const {width,height} = useWindowDimensions()
     const textColor = theme.colors.TextColor
@@ -41,8 +44,7 @@ const ImagePost = (props: Omit<FeedType,"video">) =>
    
     let positionY = useRef(new Animated.Value(height/2 - 20))
     let positionX = useRef(new Animated.Value(width/2))
-
-    console
+   
     const onDoubleTap = () =>
     {
         Vibration.vibrate()

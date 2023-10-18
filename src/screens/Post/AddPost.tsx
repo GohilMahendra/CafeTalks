@@ -12,6 +12,7 @@ import uuid from 'react-native-uuid';
 import { CreatePostInput } from "../../API";
 import { createPost } from '../../graphql/mutations';
 import { RootStackRoutesParams } from '../../types/NavigationTypes';
+import { mediaSelected } from '../../types/Post/UploadTypes';
 const { width, height } = Dimensions.get("window")
 const AddPost = () =>
 {
@@ -24,7 +25,7 @@ const AddPost = () =>
     const CreateNewPost = async() =>
     {
        
-        const images:string[] = route.params.images
+        const images:mediaSelected[] = route.params.images
         const video = route.params.video
         
         const user = await Auth.currentAuthenticatedUser({
@@ -37,19 +38,17 @@ const AddPost = () =>
         {
             for (let i=0;i < images.length ; ++i )
             {
-                const fileId = uuid.v4()
-                const fileName = fileId + ".png"
-                const imagePath = "Posts/" + UID + "/" + fileName
+                const imagePath = "Posts/" + UID + "/" + images[i].name
                 try
                 {
                     // Upload the photo to S3
                     
                     const image = images[i]
-                    const imageResponse =await RNFS.readFile(image,"base64")
+                    const imageResponse =await RNFS.readFile(image.path,"base64")
                   
                     const response = await Storage.put(imagePath,imageResponse,{
-                        contentType: 'image/png',
-                        level:"protected"
+                      //  contentType: 'image/png',
+                      //  level:"protected"
                     })
                    imageResponses.push(response.key)
                   
@@ -65,7 +64,7 @@ const AddPost = () =>
             {
                 
                 caption: caption,
-                like: 0,
+                likes: 0,
                 images:imageResponses,
                 video:null,
                 userID: UID,

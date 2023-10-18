@@ -5,13 +5,17 @@
 export type CreateCommentsInput = {
   id?: string | null,
   content?: string | null,
+  postID: string,
+  _version?: number | null,
 };
 
 export type ModelCommentsConditionInput = {
   content?: ModelStringInput | null,
+  postID?: ModelIDInput | null,
   and?: Array< ModelCommentsConditionInput | null > | null,
   or?: Array< ModelCommentsConditionInput | null > | null,
   not?: ModelCommentsConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,181 +58,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Comments = {
-  __typename: "Comments",
-  id: string,
-  content?: string | null,
-  Posts?: ModelCommentsPostConnection | null,
-  Users?: ModelCommentsUserConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelCommentsPostConnection = {
-  __typename: "ModelCommentsPostConnection",
-  items:  Array<CommentsPost | null >,
-  nextToken?: string | null,
-};
-
-export type CommentsPost = {
-  __typename: "CommentsPost",
-  id: string,
-  commentsId: string,
-  postId: string,
-  comments: Comments,
-  post: Post,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type Post = {
-  __typename: "Post",
-  id: string,
-  images?: Array< string | null > | null,
-  short?: string | null,
-  likes?: number | null,
-  comments?: number | null,
-  caption?: string | null,
-  tags?: Array< string | null > | null,
-  commentss?: ModelCommentsPostConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelCommentsUserConnection = {
-  __typename: "ModelCommentsUserConnection",
-  items:  Array<CommentsUser | null >,
-  nextToken?: string | null,
-};
-
-export type CommentsUser = {
-  __typename: "CommentsUser",
-  id: string,
-  commentsId: string,
-  userId: string,
-  comments: Comments,
-  user: User,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type User = {
-  __typename: "User",
-  id: string,
-  name: string,
-  user_name: string,
-  profile_picture: string,
-  email: string,
-  bio?: string | null,
-  commentss?: ModelCommentsUserConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateCommentsInput = {
-  id: string,
-  content?: string | null,
-};
-
-export type DeleteCommentsInput = {
-  id: string,
-};
-
-export type CreatePostInput = {
-  id?: string | null,
-  images?: Array< string | null > | null,
-  short?: string | null,
-  likes?: number | null,
-  comments?: number | null,
-  caption?: string | null,
-  tags?: Array< string | null > | null,
-};
-
-export type ModelPostConditionInput = {
-  images?: ModelStringInput | null,
-  short?: ModelStringInput | null,
-  likes?: ModelIntInput | null,
-  comments?: ModelIntInput | null,
-  caption?: ModelStringInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelPostConditionInput | null > | null,
-  or?: Array< ModelPostConditionInput | null > | null,
-  not?: ModelPostConditionInput | null,
-};
-
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type UpdatePostInput = {
-  id: string,
-  images?: Array< string | null > | null,
-  short?: string | null,
-  likes?: number | null,
-  comments?: number | null,
-  caption?: string | null,
-  tags?: Array< string | null > | null,
-};
-
-export type DeletePostInput = {
-  id: string,
-};
-
-export type CreateUserInput = {
-  id?: string | null,
-  name: string,
-  user_name: string,
-  profile_picture: string,
-  email: string,
-  bio?: string | null,
-};
-
-export type ModelUserConditionInput = {
-  name?: ModelStringInput | null,
-  user_name?: ModelStringInput | null,
-  profile_picture?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  bio?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-};
-
-export type UpdateUserInput = {
-  id: string,
-  name?: string | null,
-  user_name?: string | null,
-  profile_picture?: string | null,
-  email?: string | null,
-  bio?: string | null,
-};
-
-export type DeleteUserInput = {
-  id: string,
-};
-
-export type CreateCommentsPostInput = {
-  id?: string | null,
-  commentsId: string,
-  postId: string,
-};
-
-export type ModelCommentsPostConditionInput = {
-  commentsId?: ModelIDInput | null,
-  postId?: ModelIDInput | null,
-  and?: Array< ModelCommentsPostConditionInput | null > | null,
-  or?: Array< ModelCommentsPostConditionInput | null > | null,
-  not?: ModelCommentsPostConditionInput | null,
-};
-
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -245,98 +74,187 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateCommentsPostInput = {
-  id: string,
-  commentsId?: string | null,
-  postId?: string | null,
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
-export type DeleteCommentsPostInput = {
+export type Comments = {
+  __typename: "Comments",
   id: string,
+  content?: string | null,
+  postID: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
-export type CreateCommentsUserInput = {
+export type UpdateCommentsInput = {
+  id: string,
+  content?: string | null,
+  postID?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteCommentsInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreatePostInput = {
   id?: string | null,
-  commentsId: string,
-  userId: string,
+  images?: Array< string | null > | null,
+  video?: string | null,
+  tags?: string | null,
+  caption?: string | null,
+  likes: number,
+  comments: number,
+  userID: string,
+  _version?: number | null,
 };
 
-export type ModelCommentsUserConditionInput = {
-  commentsId?: ModelIDInput | null,
-  userId?: ModelIDInput | null,
-  and?: Array< ModelCommentsUserConditionInput | null > | null,
-  or?: Array< ModelCommentsUserConditionInput | null > | null,
-  not?: ModelCommentsUserConditionInput | null,
+export type ModelPostConditionInput = {
+  images?: ModelStringInput | null,
+  video?: ModelStringInput | null,
+  tags?: ModelStringInput | null,
+  caption?: ModelStringInput | null,
+  likes?: ModelIntInput | null,
+  comments?: ModelIntInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelPostConditionInput | null > | null,
+  or?: Array< ModelPostConditionInput | null > | null,
+  not?: ModelPostConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
-export type UpdateCommentsUserInput = {
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Post = {
+  __typename: "Post",
   id: string,
-  commentsId?: string | null,
-  userId?: string | null,
-};
-
-export type DeleteCommentsUserInput = {
-  id: string,
-};
-
-export type ModelCommentsFilterInput = {
-  id?: ModelIDInput | null,
-  content?: ModelStringInput | null,
-  and?: Array< ModelCommentsFilterInput | null > | null,
-  or?: Array< ModelCommentsFilterInput | null > | null,
-  not?: ModelCommentsFilterInput | null,
+  images?: Array< string | null > | null,
+  video?: string | null,
+  tags?: string | null,
+  caption?: string | null,
+  likes: number,
+  comments: number,
+  userID: string,
+  PostComments?: ModelCommentsConnection | null,
+  User?: User | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type ModelCommentsConnection = {
   __typename: "ModelCommentsConnection",
   items:  Array<Comments | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
-export type ModelPostFilterInput = {
-  id?: ModelIDInput | null,
-  images?: ModelStringInput | null,
-  short?: ModelStringInput | null,
-  likes?: ModelIntInput | null,
-  comments?: ModelIntInput | null,
-  caption?: ModelStringInput | null,
-  tags?: ModelStringInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
+export type User = {
+  __typename: "User",
+  id: string,
+  name: string,
+  email: string,
+  user_name: string,
+  profile_picture?: string | null,
+  bio?: string | null,
+  Posts?: ModelPostConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+  owner?: string | null,
 };
 
 export type ModelPostConnection = {
   __typename: "ModelPostConnection",
   items:  Array<Post | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
-export type ModelUserFilterInput = {
-  id?: ModelIDInput | null,
+export type UpdatePostInput = {
+  id: string,
+  images?: Array< string | null > | null,
+  video?: string | null,
+  tags?: string | null,
+  caption?: string | null,
+  likes?: number | null,
+  comments?: number | null,
+  userID?: string | null,
+  _version?: number | null,
+};
+
+export type DeletePostInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateUserInput = {
+  id?: string | null,
+  name: string,
+  email: string,
+  user_name: string,
+  profile_picture?: string | null,
+  bio?: string | null,
+  _version?: number | null,
+};
+
+export type ModelUserConditionInput = {
   name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   user_name?: ModelStringInput | null,
   profile_picture?: ModelStringInput | null,
-  email?: ModelStringInput | null,
   bio?: ModelStringInput | null,
-  and?: Array< ModelUserFilterInput | null > | null,
-  or?: Array< ModelUserFilterInput | null > | null,
-  not?: ModelUserFilterInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
+export type UpdateUserInput = {
+  id: string,
+  name?: string | null,
+  email?: string | null,
+  user_name?: string | null,
+  profile_picture?: string | null,
+  bio?: string | null,
+  _version?: number | null,
 };
 
-export type ModelCommentsPostFilterInput = {
+export type DeleteUserInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type ModelCommentsFilterInput = {
   id?: ModelIDInput | null,
-  commentsId?: ModelIDInput | null,
-  postId?: ModelIDInput | null,
-  and?: Array< ModelCommentsPostFilterInput | null > | null,
-  or?: Array< ModelCommentsPostFilterInput | null > | null,
-  not?: ModelCommentsPostFilterInput | null,
+  content?: ModelStringInput | null,
+  postID?: ModelIDInput | null,
+  and?: Array< ModelCommentsFilterInput | null > | null,
+  or?: Array< ModelCommentsFilterInput | null > | null,
+  not?: ModelCommentsFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export enum ModelSortDirection {
@@ -345,20 +263,48 @@ export enum ModelSortDirection {
 }
 
 
-export type ModelCommentsUserFilterInput = {
+export type ModelPostFilterInput = {
   id?: ModelIDInput | null,
-  commentsId?: ModelIDInput | null,
-  userId?: ModelIDInput | null,
-  and?: Array< ModelCommentsUserFilterInput | null > | null,
-  or?: Array< ModelCommentsUserFilterInput | null > | null,
-  not?: ModelCommentsUserFilterInput | null,
+  images?: ModelStringInput | null,
+  video?: ModelStringInput | null,
+  tags?: ModelStringInput | null,
+  caption?: ModelStringInput | null,
+  likes?: ModelIntInput | null,
+  comments?: ModelIntInput | null,
+  userID?: ModelIDInput | null,
+  and?: Array< ModelPostFilterInput | null > | null,
+  or?: Array< ModelPostFilterInput | null > | null,
+  not?: ModelPostFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelUserFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  user_name?: ModelStringInput | null,
+  profile_picture?: ModelStringInput | null,
+  bio?: ModelStringInput | null,
+  and?: Array< ModelUserFilterInput | null > | null,
+  or?: Array< ModelUserFilterInput | null > | null,
+  not?: ModelUserFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelSubscriptionCommentsFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   content?: ModelSubscriptionStringInput | null,
+  postID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCommentsFilterInput | null > | null,
   or?: Array< ModelSubscriptionCommentsFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -394,13 +340,15 @@ export type ModelSubscriptionStringInput = {
 export type ModelSubscriptionPostFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   images?: ModelSubscriptionStringInput | null,
-  short?: ModelSubscriptionStringInput | null,
+  video?: ModelSubscriptionStringInput | null,
+  tags?: ModelSubscriptionStringInput | null,
+  caption?: ModelSubscriptionStringInput | null,
   likes?: ModelSubscriptionIntInput | null,
   comments?: ModelSubscriptionIntInput | null,
-  caption?: ModelSubscriptionStringInput | null,
-  tags?: ModelSubscriptionStringInput | null,
+  userID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionPostFilterInput | null > | null,
   or?: Array< ModelSubscriptionPostFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIntInput = {
@@ -418,28 +366,13 @@ export type ModelSubscriptionIntInput = {
 export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
   user_name?: ModelSubscriptionStringInput | null,
   profile_picture?: ModelSubscriptionStringInput | null,
-  email?: ModelSubscriptionStringInput | null,
   bio?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-};
-
-export type ModelSubscriptionCommentsPostFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  commentsId?: ModelSubscriptionIDInput | null,
-  postId?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionCommentsPostFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCommentsPostFilterInput | null > | null,
-};
-
-export type ModelSubscriptionCommentsUserFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  commentsId?: ModelSubscriptionIDInput | null,
-  userId?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionCommentsUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCommentsUserFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type CreateCommentsMutationVariables = {
@@ -452,16 +385,12 @@ export type CreateCommentsMutation = {
     __typename: "Comments",
     id: string,
     content?: string | null,
-    Posts?:  {
-      __typename: "ModelCommentsPostConnection",
-      nextToken?: string | null,
-    } | null,
-    Users?:  {
-      __typename: "ModelCommentsUserConnection",
-      nextToken?: string | null,
-    } | null,
+    postID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -475,16 +404,12 @@ export type UpdateCommentsMutation = {
     __typename: "Comments",
     id: string,
     content?: string | null,
-    Posts?:  {
-      __typename: "ModelCommentsPostConnection",
-      nextToken?: string | null,
-    } | null,
-    Users?:  {
-      __typename: "ModelCommentsUserConnection",
-      nextToken?: string | null,
-    } | null,
+    postID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -498,16 +423,12 @@ export type DeleteCommentsMutation = {
     __typename: "Comments",
     id: string,
     content?: string | null,
-    Posts?:  {
-      __typename: "ModelCommentsPostConnection",
-      nextToken?: string | null,
-    } | null,
-    Users?:  {
-      __typename: "ModelCommentsUserConnection",
-      nextToken?: string | null,
-    } | null,
+    postID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -521,17 +442,37 @@ export type CreatePostMutation = {
     __typename: "Post",
     id: string,
     images?: Array< string | null > | null,
-    short?: string | null,
-    likes?: number | null,
-    comments?: number | null,
+    video?: string | null,
+    tags?: string | null,
     caption?: string | null,
-    tags?: Array< string | null > | null,
-    commentss?:  {
-      __typename: "ModelCommentsPostConnection",
+    likes: number,
+    comments: number,
+    userID: string,
+    PostComments?:  {
+      __typename: "ModelCommentsConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      user_name: string,
+      profile_picture?: string | null,
+      bio?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -545,17 +486,37 @@ export type UpdatePostMutation = {
     __typename: "Post",
     id: string,
     images?: Array< string | null > | null,
-    short?: string | null,
-    likes?: number | null,
-    comments?: number | null,
+    video?: string | null,
+    tags?: string | null,
     caption?: string | null,
-    tags?: Array< string | null > | null,
-    commentss?:  {
-      __typename: "ModelCommentsPostConnection",
+    likes: number,
+    comments: number,
+    userID: string,
+    PostComments?:  {
+      __typename: "ModelCommentsConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      user_name: string,
+      profile_picture?: string | null,
+      bio?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -569,17 +530,37 @@ export type DeletePostMutation = {
     __typename: "Post",
     id: string,
     images?: Array< string | null > | null,
-    short?: string | null,
-    likes?: number | null,
-    comments?: number | null,
+    video?: string | null,
+    tags?: string | null,
     caption?: string | null,
-    tags?: Array< string | null > | null,
-    commentss?:  {
-      __typename: "ModelCommentsPostConnection",
+    likes: number,
+    comments: number,
+    userID: string,
+    PostComments?:  {
+      __typename: "ModelCommentsConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      user_name: string,
+      profile_picture?: string | null,
+      bio?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -593,16 +574,21 @@ export type CreateUserMutation = {
     __typename: "User",
     id: string,
     name: string,
-    user_name: string,
-    profile_picture: string,
     email: string,
+    user_name: string,
+    profile_picture?: string | null,
     bio?: string | null,
-    commentss?:  {
-      __typename: "ModelCommentsUserConnection",
+    Posts?:  {
+      __typename: "ModelPostConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -616,16 +602,21 @@ export type UpdateUserMutation = {
     __typename: "User",
     id: string,
     name: string,
-    user_name: string,
-    profile_picture: string,
     email: string,
+    user_name: string,
+    profile_picture?: string | null,
     bio?: string | null,
-    commentss?:  {
-      __typename: "ModelCommentsUserConnection",
+    Posts?:  {
+      __typename: "ModelPostConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -639,223 +630,21 @@ export type DeleteUserMutation = {
     __typename: "User",
     id: string,
     name: string,
-    user_name: string,
-    profile_picture: string,
     email: string,
+    user_name: string,
+    profile_picture?: string | null,
     bio?: string | null,
-    commentss?:  {
-      __typename: "ModelCommentsUserConnection",
+    Posts?:  {
+      __typename: "ModelPostConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type CreateCommentsPostMutationVariables = {
-  input: CreateCommentsPostInput,
-  condition?: ModelCommentsPostConditionInput | null,
-};
-
-export type CreateCommentsPostMutation = {
-  createCommentsPost?:  {
-    __typename: "CommentsPost",
-    id: string,
-    commentsId: string,
-    postId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    post:  {
-      __typename: "Post",
-      id: string,
-      images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
-      caption?: string | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateCommentsPostMutationVariables = {
-  input: UpdateCommentsPostInput,
-  condition?: ModelCommentsPostConditionInput | null,
-};
-
-export type UpdateCommentsPostMutation = {
-  updateCommentsPost?:  {
-    __typename: "CommentsPost",
-    id: string,
-    commentsId: string,
-    postId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    post:  {
-      __typename: "Post",
-      id: string,
-      images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
-      caption?: string | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteCommentsPostMutationVariables = {
-  input: DeleteCommentsPostInput,
-  condition?: ModelCommentsPostConditionInput | null,
-};
-
-export type DeleteCommentsPostMutation = {
-  deleteCommentsPost?:  {
-    __typename: "CommentsPost",
-    id: string,
-    commentsId: string,
-    postId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    post:  {
-      __typename: "Post",
-      id: string,
-      images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
-      caption?: string | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateCommentsUserMutationVariables = {
-  input: CreateCommentsUserInput,
-  condition?: ModelCommentsUserConditionInput | null,
-};
-
-export type CreateCommentsUserMutation = {
-  createCommentsUser?:  {
-    __typename: "CommentsUser",
-    id: string,
-    commentsId: string,
-    userId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    user:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      user_name: string,
-      profile_picture: string,
-      email: string,
-      bio?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateCommentsUserMutationVariables = {
-  input: UpdateCommentsUserInput,
-  condition?: ModelCommentsUserConditionInput | null,
-};
-
-export type UpdateCommentsUserMutation = {
-  updateCommentsUser?:  {
-    __typename: "CommentsUser",
-    id: string,
-    commentsId: string,
-    userId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    user:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      user_name: string,
-      profile_picture: string,
-      email: string,
-      bio?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteCommentsUserMutationVariables = {
-  input: DeleteCommentsUserInput,
-  condition?: ModelCommentsUserConditionInput | null,
-};
-
-export type DeleteCommentsUserMutation = {
-  deleteCommentsUser?:  {
-    __typename: "CommentsUser",
-    id: string,
-    commentsId: string,
-    userId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    user:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      user_name: string,
-      profile_picture: string,
-      email: string,
-      bio?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -868,16 +657,12 @@ export type GetCommentsQuery = {
     __typename: "Comments",
     id: string,
     content?: string | null,
-    Posts?:  {
-      __typename: "ModelCommentsPostConnection",
-      nextToken?: string | null,
-    } | null,
-    Users?:  {
-      __typename: "ModelCommentsUserConnection",
-      nextToken?: string | null,
-    } | null,
+    postID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -894,10 +679,68 @@ export type ListCommentsQuery = {
       __typename: "Comments",
       id: string,
       content?: string | null,
+      postID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCommentsQueryVariables = {
+  filter?: ModelCommentsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCommentsQuery = {
+  syncComments?:  {
+    __typename: "ModelCommentsConnection",
+    items:  Array< {
+      __typename: "Comments",
+      id: string,
+      content?: string | null,
+      postID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type CommentsByPostIDQueryVariables = {
+  postID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCommentsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CommentsByPostIDQuery = {
+  commentsByPostID?:  {
+    __typename: "ModelCommentsConnection",
+    items:  Array< {
+      __typename: "Comments",
+      id: string,
+      content?: string | null,
+      postID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -910,17 +753,37 @@ export type GetPostQuery = {
     __typename: "Post",
     id: string,
     images?: Array< string | null > | null,
-    short?: string | null,
-    likes?: number | null,
-    comments?: number | null,
+    video?: string | null,
+    tags?: string | null,
     caption?: string | null,
-    tags?: Array< string | null > | null,
-    commentss?:  {
-      __typename: "ModelCommentsPostConnection",
+    likes: number,
+    comments: number,
+    userID: string,
+    PostComments?:  {
+      __typename: "ModelCommentsConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      user_name: string,
+      profile_picture?: string | null,
+      bio?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -937,15 +800,83 @@ export type ListPostsQuery = {
       __typename: "Post",
       id: string,
       images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
+      video?: string | null,
+      tags?: string | null,
       caption?: string | null,
-      tags?: Array< string | null > | null,
+      likes: number,
+      comments: number,
+      userID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncPostsQueryVariables = {
+  filter?: ModelPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncPostsQuery = {
+  syncPosts?:  {
+    __typename: "ModelPostConnection",
+    items:  Array< {
+      __typename: "Post",
+      id: string,
+      images?: Array< string | null > | null,
+      video?: string | null,
+      tags?: string | null,
+      caption?: string | null,
+      likes: number,
+      comments: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type PostsByUserIDQueryVariables = {
+  userID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type PostsByUserIDQuery = {
+  postsByUserID?:  {
+    __typename: "ModelPostConnection",
+    items:  Array< {
+      __typename: "Post",
+      id: string,
+      images?: Array< string | null > | null,
+      video?: string | null,
+      tags?: string | null,
+      caption?: string | null,
+      likes: number,
+      comments: number,
+      userID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -958,16 +889,21 @@ export type GetUserQuery = {
     __typename: "User",
     id: string,
     name: string,
-    user_name: string,
-    profile_picture: string,
     email: string,
+    user_name: string,
+    profile_picture?: string | null,
     bio?: string | null,
-    commentss?:  {
-      __typename: "ModelCommentsUserConnection",
+    Posts?:  {
+      __typename: "ModelPostConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
@@ -984,215 +920,49 @@ export type ListUsersQuery = {
       __typename: "User",
       id: string,
       name: string,
-      user_name: string,
-      profile_picture: string,
       email: string,
+      user_name: string,
+      profile_picture?: string | null,
       bio?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
-export type GetCommentsPostQueryVariables = {
-  id: string,
-};
-
-export type GetCommentsPostQuery = {
-  getCommentsPost?:  {
-    __typename: "CommentsPost",
-    id: string,
-    commentsId: string,
-    postId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    post:  {
-      __typename: "Post",
-      id: string,
-      images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
-      caption?: string | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListCommentsPostsQueryVariables = {
-  filter?: ModelCommentsPostFilterInput | null,
+export type SyncUsersQueryVariables = {
+  filter?: ModelUserFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  lastSync?: number | null,
 };
 
-export type ListCommentsPostsQuery = {
-  listCommentsPosts?:  {
-    __typename: "ModelCommentsPostConnection",
+export type SyncUsersQuery = {
+  syncUsers?:  {
+    __typename: "ModelUserConnection",
     items:  Array< {
-      __typename: "CommentsPost",
-      id: string,
-      commentsId: string,
-      postId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CommentsPostsByCommentsIdQueryVariables = {
-  commentsId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCommentsPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CommentsPostsByCommentsIdQuery = {
-  commentsPostsByCommentsId?:  {
-    __typename: "ModelCommentsPostConnection",
-    items:  Array< {
-      __typename: "CommentsPost",
-      id: string,
-      commentsId: string,
-      postId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CommentsPostsByPostIdQueryVariables = {
-  postId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCommentsPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CommentsPostsByPostIdQuery = {
-  commentsPostsByPostId?:  {
-    __typename: "ModelCommentsPostConnection",
-    items:  Array< {
-      __typename: "CommentsPost",
-      id: string,
-      commentsId: string,
-      postId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetCommentsUserQueryVariables = {
-  id: string,
-};
-
-export type GetCommentsUserQuery = {
-  getCommentsUser?:  {
-    __typename: "CommentsUser",
-    id: string,
-    commentsId: string,
-    userId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    user:  {
       __typename: "User",
       id: string,
       name: string,
-      user_name: string,
-      profile_picture: string,
       email: string,
+      user_name: string,
+      profile_picture?: string | null,
       bio?: string | null,
       createdAt: string,
       updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListCommentsUsersQueryVariables = {
-  filter?: ModelCommentsUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCommentsUsersQuery = {
-  listCommentsUsers?:  {
-    __typename: "ModelCommentsUserConnection",
-    items:  Array< {
-      __typename: "CommentsUser",
-      id: string,
-      commentsId: string,
-      userId: string,
-      createdAt: string,
-      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
-  } | null,
-};
-
-export type CommentsUsersByCommentsIdQueryVariables = {
-  commentsId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCommentsUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CommentsUsersByCommentsIdQuery = {
-  commentsUsersByCommentsId?:  {
-    __typename: "ModelCommentsUserConnection",
-    items:  Array< {
-      __typename: "CommentsUser",
-      id: string,
-      commentsId: string,
-      userId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type CommentsUsersByUserIdQueryVariables = {
-  userId: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelCommentsUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type CommentsUsersByUserIdQuery = {
-  commentsUsersByUserId?:  {
-    __typename: "ModelCommentsUserConnection",
-    items:  Array< {
-      __typename: "CommentsUser",
-      id: string,
-      commentsId: string,
-      userId: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -1205,16 +975,12 @@ export type OnCreateCommentsSubscription = {
     __typename: "Comments",
     id: string,
     content?: string | null,
-    Posts?:  {
-      __typename: "ModelCommentsPostConnection",
-      nextToken?: string | null,
-    } | null,
-    Users?:  {
-      __typename: "ModelCommentsUserConnection",
-      nextToken?: string | null,
-    } | null,
+    postID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1227,16 +993,12 @@ export type OnUpdateCommentsSubscription = {
     __typename: "Comments",
     id: string,
     content?: string | null,
-    Posts?:  {
-      __typename: "ModelCommentsPostConnection",
-      nextToken?: string | null,
-    } | null,
-    Users?:  {
-      __typename: "ModelCommentsUserConnection",
-      nextToken?: string | null,
-    } | null,
+    postID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1249,16 +1011,12 @@ export type OnDeleteCommentsSubscription = {
     __typename: "Comments",
     id: string,
     content?: string | null,
-    Posts?:  {
-      __typename: "ModelCommentsPostConnection",
-      nextToken?: string | null,
-    } | null,
-    Users?:  {
-      __typename: "ModelCommentsUserConnection",
-      nextToken?: string | null,
-    } | null,
+    postID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1271,17 +1029,37 @@ export type OnCreatePostSubscription = {
     __typename: "Post",
     id: string,
     images?: Array< string | null > | null,
-    short?: string | null,
-    likes?: number | null,
-    comments?: number | null,
+    video?: string | null,
+    tags?: string | null,
     caption?: string | null,
-    tags?: Array< string | null > | null,
-    commentss?:  {
-      __typename: "ModelCommentsPostConnection",
+    likes: number,
+    comments: number,
+    userID: string,
+    PostComments?:  {
+      __typename: "ModelCommentsConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      user_name: string,
+      profile_picture?: string | null,
+      bio?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1294,17 +1072,37 @@ export type OnUpdatePostSubscription = {
     __typename: "Post",
     id: string,
     images?: Array< string | null > | null,
-    short?: string | null,
-    likes?: number | null,
-    comments?: number | null,
+    video?: string | null,
+    tags?: string | null,
     caption?: string | null,
-    tags?: Array< string | null > | null,
-    commentss?:  {
-      __typename: "ModelCommentsPostConnection",
+    likes: number,
+    comments: number,
+    userID: string,
+    PostComments?:  {
+      __typename: "ModelCommentsConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      user_name: string,
+      profile_picture?: string | null,
+      bio?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1317,22 +1115,43 @@ export type OnDeletePostSubscription = {
     __typename: "Post",
     id: string,
     images?: Array< string | null > | null,
-    short?: string | null,
-    likes?: number | null,
-    comments?: number | null,
+    video?: string | null,
+    tags?: string | null,
     caption?: string | null,
-    tags?: Array< string | null > | null,
-    commentss?:  {
-      __typename: "ModelCommentsPostConnection",
+    likes: number,
+    comments: number,
+    userID: string,
+    PostComments?:  {
+      __typename: "ModelCommentsConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      user_name: string,
+      profile_picture?: string | null,
+      bio?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+      owner?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
 export type OnCreateUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateUserSubscription = {
@@ -1340,21 +1159,27 @@ export type OnCreateUserSubscription = {
     __typename: "User",
     id: string,
     name: string,
-    user_name: string,
-    profile_picture: string,
     email: string,
+    user_name: string,
+    profile_picture?: string | null,
     bio?: string | null,
-    commentss?:  {
-      __typename: "ModelCommentsUserConnection",
+    Posts?:  {
+      __typename: "ModelPostConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateUserSubscription = {
@@ -1362,21 +1187,27 @@ export type OnUpdateUserSubscription = {
     __typename: "User",
     id: string,
     name: string,
-    user_name: string,
-    profile_picture: string,
     email: string,
+    user_name: string,
+    profile_picture?: string | null,
     bio?: string | null,
-    commentss?:  {
-      __typename: "ModelCommentsUserConnection",
+    Posts?:  {
+      __typename: "ModelPostConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteUserSubscriptionVariables = {
   filter?: ModelSubscriptionUserFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteUserSubscription = {
@@ -1384,216 +1215,20 @@ export type OnDeleteUserSubscription = {
     __typename: "User",
     id: string,
     name: string,
-    user_name: string,
-    profile_picture: string,
     email: string,
+    user_name: string,
+    profile_picture?: string | null,
     bio?: string | null,
-    commentss?:  {
-      __typename: "ModelCommentsUserConnection",
+    Posts?:  {
+      __typename: "ModelPostConnection",
       nextToken?: string | null,
+      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnCreateCommentsPostSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentsPostFilterInput | null,
-};
-
-export type OnCreateCommentsPostSubscription = {
-  onCreateCommentsPost?:  {
-    __typename: "CommentsPost",
-    id: string,
-    commentsId: string,
-    postId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    post:  {
-      __typename: "Post",
-      id: string,
-      images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
-      caption?: string | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateCommentsPostSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentsPostFilterInput | null,
-};
-
-export type OnUpdateCommentsPostSubscription = {
-  onUpdateCommentsPost?:  {
-    __typename: "CommentsPost",
-    id: string,
-    commentsId: string,
-    postId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    post:  {
-      __typename: "Post",
-      id: string,
-      images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
-      caption?: string | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteCommentsPostSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentsPostFilterInput | null,
-};
-
-export type OnDeleteCommentsPostSubscription = {
-  onDeleteCommentsPost?:  {
-    __typename: "CommentsPost",
-    id: string,
-    commentsId: string,
-    postId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    post:  {
-      __typename: "Post",
-      id: string,
-      images?: Array< string | null > | null,
-      short?: string | null,
-      likes?: number | null,
-      comments?: number | null,
-      caption?: string | null,
-      tags?: Array< string | null > | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateCommentsUserSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentsUserFilterInput | null,
-};
-
-export type OnCreateCommentsUserSubscription = {
-  onCreateCommentsUser?:  {
-    __typename: "CommentsUser",
-    id: string,
-    commentsId: string,
-    userId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    user:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      user_name: string,
-      profile_picture: string,
-      email: string,
-      bio?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateCommentsUserSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentsUserFilterInput | null,
-};
-
-export type OnUpdateCommentsUserSubscription = {
-  onUpdateCommentsUser?:  {
-    __typename: "CommentsUser",
-    id: string,
-    commentsId: string,
-    userId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    user:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      user_name: string,
-      profile_picture: string,
-      email: string,
-      bio?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteCommentsUserSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentsUserFilterInput | null,
-};
-
-export type OnDeleteCommentsUserSubscription = {
-  onDeleteCommentsUser?:  {
-    __typename: "CommentsUser",
-    id: string,
-    commentsId: string,
-    userId: string,
-    comments:  {
-      __typename: "Comments",
-      id: string,
-      content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    user:  {
-      __typename: "User",
-      id: string,
-      name: string,
-      user_name: string,
-      profile_picture: string,
-      email: string,
-      bio?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+    owner?: string | null,
   } | null,
 };

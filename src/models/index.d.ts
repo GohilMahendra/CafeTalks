@@ -1,11 +1,8 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
-export enum MediaType {
-  VIDEO = "VIDEO",
-  IMAGES = "IMAGES"
-}
+
 
 
 
@@ -15,12 +12,10 @@ type EagerComments = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly content: string;
+  readonly content?: string | null;
   readonly postID: string;
-  readonly User?: User | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly commentsUserId?: string | null;
 }
 
 type LazyComments = {
@@ -29,12 +24,10 @@ type LazyComments = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly content: string;
+  readonly content?: string | null;
   readonly postID: string;
-  readonly User: AsyncItem<User | undefined>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  readonly commentsUserId?: string | null;
 }
 
 export declare type Comments = LazyLoading extends LazyLoadingDisabled ? EagerComments : LazyComments
@@ -49,16 +42,15 @@ type EagerPost = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly content: string;
-  readonly tags?: (string | null)[] | null;
   readonly images?: (string | null)[] | null;
-  readonly type: MediaType | keyof typeof MediaType;
+  readonly video?: string | null;
+  readonly tags?: string | null;
+  readonly caption?: string | null;
   readonly likes: number;
   readonly comments: number;
   readonly userID: string;
+  readonly PostComments?: (Comments | null)[] | null;
   readonly User?: User | null;
-  readonly Comments?: (Comments | null)[] | null;
-  readonly short?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -69,16 +61,15 @@ type LazyPost = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly content: string;
-  readonly tags?: (string | null)[] | null;
   readonly images?: (string | null)[] | null;
-  readonly type: MediaType | keyof typeof MediaType;
+  readonly video?: string | null;
+  readonly tags?: string | null;
+  readonly caption?: string | null;
   readonly likes: number;
   readonly comments: number;
   readonly userID: string;
+  readonly PostComments: AsyncCollection<Comments>;
   readonly User: AsyncItem<User | undefined>;
-  readonly Comments: AsyncCollection<Comments>;
-  readonly short?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -95,11 +86,11 @@ type EagerUser = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly name?: string | null;
-  readonly user_name?: string | null;
-  readonly bio?: string | null;
-  readonly email?: string | null;
+  readonly name: string;
+  readonly email: string;
+  readonly user_name: string;
   readonly profile_picture?: string | null;
+  readonly bio?: string | null;
   readonly Posts?: (Post | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -111,11 +102,11 @@ type LazyUser = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly name?: string | null;
-  readonly user_name?: string | null;
-  readonly bio?: string | null;
-  readonly email?: string | null;
+  readonly name: string;
+  readonly email: string;
+  readonly user_name: string;
   readonly profile_picture?: string | null;
+  readonly bio?: string | null;
   readonly Posts: AsyncCollection<Post>;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

@@ -44,16 +44,24 @@ const Profile = () =>
         })
         const user_id = currentUser.attributes.sub
         
+        try
+        {
         const user: GraphQLResult<any> = (await API.graphql(graphqlOperation(getUser,{id:user_id})))
-        const imagePath = await Storage.get(user.data.getUser.profile_picture)
+        console.log(user.data.getUser.profile_picture)
+        const imagePath = user.data.getUser.profile_picture ? await Storage.get(user.data.getUser.profile_picture) : null
         console.log(imagePath)
         setUser({
             bio: user.data?.getUser?.bio,
-            image:imagePath,
+            image:user.data.getUser.profile_picture,
             name: user.data.getUser.name,
             user_name:  user.data.getUser.user_name,
             email: user.data.getUser.email,
         })
+        }
+        catch(err)
+        {
+            console.log(err)
+        }   
 
     }
     useEffect(()=>{
@@ -241,7 +249,7 @@ const styles = StyleSheet.create({
     {
         height:70,
         width:70,
-        backgroundColor:"#fff",
+      //  backgroundColor:"#fff",
         borderRadius:70
     }
 
