@@ -43,7 +43,7 @@ const Home = () =>
            
             }}>
             {
-                item.images.length > 0 ?
+                true  ?
                 <ImagePost
                 comments={item.comments}
                 id={item.id}
@@ -88,41 +88,45 @@ const Home = () =>
             graphqlOperation(listPosts)
           );
         let Feed: FeedType[] = []
-        console.log(JSON.stringify(response))
-          if(response.data?.listPosts?.items)
-          {
 
-            console.log(response.data?.listPosts?.items)
-            
-             response.data.listPosts.items.forEach(async(data:any)=>{
-             //   const profile = await Storage.get(data?.User?.profile_picture)
-             let imageArr: string[] = [];
+        const items:any[] = response.data.listPosts.items
+        let Feeds:FeedType[] = []
+        for(const item of items)
+        {
 
-             for (const image of data.images) {
-               const imageUrl = await Storage.get(image);
-               console.log(imageUrl, "getting this image");
-               imageArr.push(imageUrl);
-             }
-                Feed.push({
-                    comments: data.comments || 0,
-                    id: data.id,
-                    images: imageArr ,
-                    likes: data.likes,
-                    name:"ds",
-                    profilePicture:"",
-                    tags:data.tags || [],
-                    userName:"dsd",
-                    video: data.video
-                })
-             })
-          }
-          setFeedPosts(Feed)
-          console.log(Feed)
-        }
-            catch(err)
+            const images:string[] = item.images
+            const imageUrls:string[] = []
+            for(const image of images)
             {
-                console.log(err)
+                const imageUrl = await Storage.get(image)
+                imageUrls.push(imageUrl)
             }
+
+            const FeedItem:FeedType=
+            {
+                comments: item.comments,
+                id: item.id,
+                images: imageUrls,
+                likes: item.likes,
+                name:"",
+                profilePicture:"",
+                tags:[],
+                userName:"",
+                video: null
+            }   
+
+
+            Feeds.push(FeedItem)
+        }
+
+        setFeedPosts(Feeds)
+        console.log(Feeds,"i am getting this Feeds")
+
+        }
+        catch(err)
+        {
+            console.log(err)
+        } 
     }
        
 

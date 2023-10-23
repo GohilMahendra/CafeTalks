@@ -16,10 +16,10 @@ import {
   View,
 } from 'react-native';
 import { Amplify } from 'aws-amplify';
-import awsExports from './src/aws-exports';
 import RootNavigation from './src/navigation/RootNavigation';
 import {ThemeProvider} from "./src/globals/ThemeContext";
-Amplify.configure(awsExports); 
+import config from './src/aws-exports'
+Amplify.configure(config)
 function App(){
   return (
       <ThemeProvider>

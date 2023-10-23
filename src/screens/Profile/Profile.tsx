@@ -52,7 +52,7 @@ const Profile = () =>
         console.log(imagePath)
         setUser({
             bio: user.data?.getUser?.bio,
-            image:user.data.getUser.profile_picture,
+            image:imagePath,
             name: user.data.getUser.name,
             user_name:  user.data.getUser.user_name,
             email: user.data.getUser.email,

@@ -13,7 +13,6 @@ import StoryViewer from '../screens/Stories/StoryViewer';
 import UserTabNavigation from './UserTabNavigation';
 import SelectMedia from '../screens/Post/SelectMedia';
 import { RootStackRoutesParams } from '../types/NavigationTypes';
-
 const RootNavigation = () =>
 {
     const rootStack =createNativeStackNavigator<RootStackRoutesParams>()

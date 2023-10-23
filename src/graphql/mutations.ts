@@ -18,9 +18,6 @@ export const createComments = /* GraphQL */ `mutation CreateComments(
     postID
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -38,9 +35,6 @@ export const updateComments = /* GraphQL */ `mutation UpdateComments(
     postID
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -58,9 +52,6 @@ export const deleteComments = /* GraphQL */ `mutation DeleteComments(
     postID
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -74,18 +65,17 @@ export const createPost = /* GraphQL */ `mutation CreatePost(
 ) {
   createPost(input: $input, condition: $condition) {
     id
-    images
-    video
-    tags
     caption
     likes
     comments
-    userID
-    PostComments {
+    video
+    images
+    tags
+    Comments {
       nextToken
-      startedAt
       __typename
     }
+    userID
     User {
       id
       name
@@ -95,17 +85,11 @@ export const createPost = /* GraphQL */ `mutation CreatePost(
       bio
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
+    type
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -119,18 +103,17 @@ export const updatePost = /* GraphQL */ `mutation UpdatePost(
 ) {
   updatePost(input: $input, condition: $condition) {
     id
-    images
-    video
-    tags
     caption
     likes
     comments
-    userID
-    PostComments {
+    video
+    images
+    tags
+    Comments {
       nextToken
-      startedAt
       __typename
     }
+    userID
     User {
       id
       name
@@ -140,17 +123,11 @@ export const updatePost = /* GraphQL */ `mutation UpdatePost(
       bio
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
+    type
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -164,18 +141,17 @@ export const deletePost = /* GraphQL */ `mutation DeletePost(
 ) {
   deletePost(input: $input, condition: $condition) {
     id
-    images
-    video
-    tags
     caption
     likes
     comments
-    userID
-    PostComments {
+    video
+    images
+    tags
+    Comments {
       nextToken
-      startedAt
       __typename
     }
+    userID
     User {
       id
       name
@@ -185,17 +161,11 @@ export const deletePost = /* GraphQL */ `mutation DeletePost(
       bio
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
+    type
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -216,15 +186,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     bio
     Posts {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
-    owner
     __typename
   }
 }
@@ -245,15 +210,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     bio
     Posts {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
-    owner
     __typename
   }
 }
@@ -274,15 +234,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     bio
     Posts {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
-    owner
     __typename
   }
 }

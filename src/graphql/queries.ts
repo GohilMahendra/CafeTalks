@@ -15,9 +15,6 @@ export const getComments = /* GraphQL */ `query GetComments($id: ID!) {
     postID
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -37,51 +34,15 @@ export const listComments = /* GraphQL */ `query ListComments(
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<
   APITypes.ListCommentsQueryVariables,
   APITypes.ListCommentsQuery
->;
-export const syncComments = /* GraphQL */ `query SyncComments(
-  $filter: ModelCommentsFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncComments(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      content
-      postID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SyncCommentsQueryVariables,
-  APITypes.SyncCommentsQuery
 >;
 export const commentsByPostID = /* GraphQL */ `query CommentsByPostID(
   $postID: ID!
@@ -103,13 +64,9 @@ export const commentsByPostID = /* GraphQL */ `query CommentsByPostID(
       postID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
@@ -120,18 +77,17 @@ export const commentsByPostID = /* GraphQL */ `query CommentsByPostID(
 export const getPost = /* GraphQL */ `query GetPost($id: ID!) {
   getPost(id: $id) {
     id
-    images
-    video
-    tags
     caption
     likes
     comments
-    userID
-    PostComments {
+    video
+    images
+    tags
+    Comments {
       nextToken
-      startedAt
       __typename
     }
+    userID
     User {
       id
       name
@@ -141,17 +97,11 @@ export const getPost = /* GraphQL */ `query GetPost($id: ID!) {
       bio
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
+    type
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     __typename
   }
 }
@@ -164,60 +114,23 @@ export const listPosts = /* GraphQL */ `query ListPosts(
   listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      images
-      video
-      tags
       caption
       likes
       comments
+      video
+      images
+      tags
       userID
+      type
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListPostsQueryVariables, APITypes.ListPostsQuery>;
-export const syncPosts = /* GraphQL */ `query SyncPosts(
-  $filter: ModelPostFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncPosts(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      images
-      video
-      tags
-      caption
-      likes
-      comments
-      userID
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.SyncPostsQueryVariables, APITypes.SyncPostsQuery>;
 export const postsByUserID = /* GraphQL */ `query PostsByUserID(
   $userID: ID!
   $sortDirection: ModelSortDirection
@@ -234,22 +147,19 @@ export const postsByUserID = /* GraphQL */ `query PostsByUserID(
   ) {
     items {
       id
-      images
-      video
-      tags
       caption
       likes
       comments
+      video
+      images
+      tags
       userID
+      type
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
@@ -267,15 +177,10 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     bio
     Posts {
       nextToken
-      startedAt
       __typename
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
-    owner
     __typename
   }
 }
@@ -295,48 +200,10 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       bio
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
       __typename
     }
     nextToken
-    startedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
-export const syncUsers = /* GraphQL */ `query SyncUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncUsers(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      email
-      user_name
-      profile_picture
-      bio
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      owner
-      __typename
-    }
-    nextToken
-    startedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.SyncUsersQueryVariables, APITypes.SyncUsersQuery>;

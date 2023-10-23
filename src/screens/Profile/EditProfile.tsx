@@ -14,6 +14,7 @@ import { updateUser } from '../../graphql/mutations'
 import { UpdateUserInput } from '../../API'
 import RNFS from "react-native-fs";
 import { ProfileStackParams } from '../../types/NavigationTypes'
+import {  Buffer } from "buffer";
 const EditProfile = () =>
 {
 
@@ -73,9 +74,21 @@ const EditProfile = () =>
             {
             const fileName ="Profile/"+UID + "/" +UID+".png"
             const file = await RNFS.readFile(ProfilePicture,"base64")
-            const blob = new Blob([file]); 
-            const response = await Storage.put(fileName,file,{
-                contentType:"image/png"
+            const byteCharacters = Buffer.from(file, 'base64').toString('binary');
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+        
+            // Create a Blob-like object
+            const blob = {
+              data: byteArray,
+              size: byteArray.length,
+              type: 'application/octet-stream', // Adjust the MIME type as needed
+            };
+            const response = await Storage.put(fileName,blob,{
+               
             })
     
             key = response.key
@@ -92,7 +105,7 @@ const EditProfile = () =>
         const input:UpdateUserInput = 
         {
             id: UID,
-            bio:"fake bio",
+            bio:bio,
             profile_picture: key
         }
         const respose = await API.graphql(graphqlOperation(updateUser,{

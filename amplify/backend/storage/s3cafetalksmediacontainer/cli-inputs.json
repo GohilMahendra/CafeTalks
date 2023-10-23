@@ -1,0 +1,16 @@
+{
+  "resourceName": "s3cafetalksmediacontainer",
+  "bucketName": "cafetalks-media-container",
+  "policyUUID": "e6c67bcb",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "DELETE",
+    "READ"
+  ]
+}

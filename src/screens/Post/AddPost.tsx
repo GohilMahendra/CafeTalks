@@ -9,10 +9,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Header from '../../components/global/Header';
 import { API, Auth, Storage, graphqlOperation ,} from 'aws-amplify';
 import uuid from 'react-native-uuid';
-import { CreatePostInput } from "../../API";
+import { CreatePostInput, MEDIATYPE } from "../../API";
 import { createPost } from '../../graphql/mutations';
 import { RootStackRoutesParams } from '../../types/NavigationTypes';
 import { mediaSelected } from '../../types/Post/UploadTypes';
+import { Buffer} from "buffer";
 const { width, height } = Dimensions.get("window")
 const AddPost = () =>
 {
@@ -32,7 +33,6 @@ const AddPost = () =>
             bypassCache: true
         })
         const UID  =  user.attributes.sub
-        const postID = uuid.v4()
         let imageResponses:string[] = []
         if(images.length > 0)
         {
@@ -45,10 +45,11 @@ const AddPost = () =>
                     
                     const image = images[i]
                     const imageResponse =await RNFS.readFile(image.path,"base64")
+    
+                    const blob = new Blob([imageResponse], { type: 'image/jpeg' , lastModified:1000000}); 
                   
-                    const response = await Storage.put(imagePath,imageResponse,{
-                      //  contentType: 'image/png',
-                      //  level:"protected"
+                    const response = await Storage.put(imagePath,blob,{
+                      contentType: 'image/jpeg'
                     })
                    imageResponses.push(response.key)
                   
@@ -69,19 +70,22 @@ const AddPost = () =>
                 video:null,
                 userID: UID,
                 comments:0,
+                type: MEDIATYPE.IMAGES
             }
 
         
-            const response = await API.graphql(graphqlOperation(createPost,{
-                input
-            }))
-            console.log(JSON.stringify(response))
+            // const response = await API.graphql(graphqlOperation(createPost,{
+            //     input
+            // }))
+            // console.log(JSON.stringify(response))
 
         }
 
         
        
     }
+
+
     return(
         <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

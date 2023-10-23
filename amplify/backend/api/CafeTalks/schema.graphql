@@ -1,23 +1,29 @@
-type Comments @model @auth(rules: [{allow: private}]) {
+enum MEDIATYPE {
+  VIDEO
+  IMAGES
+}
+
+type Comments @model @auth(rules: [{allow: public}]) {
   id: ID!
   content: String
   postID: ID! @index(name: "byPost")
 }
 
-type Post @model @auth(rules: [{allow: private}]) {
+type Post @model @auth(rules: [{allow: public}]) {
   id: ID!
-  images: [String]
-  video: String
-  tags: String
-  caption: String
+  caption: String!
   likes: Int!
   comments: Int!
+  video: String
+  images: [String]
+  tags: [String]
+  Comments: [Comments] @hasMany(indexName: "byPost", fields: ["id"])
   userID: ID! @index(name: "byUser")
-  PostComments: [Comments] @hasMany(indexName: "byPost", fields: ["id"])
   User: User @belongsTo(fields: ["userID"])
+  type: MEDIATYPE!
 }
 
-type User @model @auth(rules: [{allow: private}, {allow: owner}]) {
+type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   email: String!
