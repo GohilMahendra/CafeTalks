@@ -322,9 +322,7 @@ const EditProfile = () =>
 
                 </View>
 
-            </Modal>
-
-
+                </Modal>
             </ScrollView>
         </KeyboardAvoidingView>
     )

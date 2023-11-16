@@ -35,6 +35,11 @@ import { RootStackRoutesParams } from '../../types/NavigationTypes'
         <View style={[styles.container,{
             backgroundColor: theme.colors.ColorBackground
         }]}>
+            <Text style={{
+                fontSize:30,
+                fontWeight:"bold",
+                color: theme.colors.ColorPrimary
+            }}>CafeTalks !</Text>
             <TextInput
             testID= {"input_userName"}
             value={userName}
